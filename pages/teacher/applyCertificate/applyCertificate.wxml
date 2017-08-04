@@ -1,0 +1,164 @@
+<view>
+  <view class='h_cw'>
+    <view class='base dates h_ksa'>
+      <view class='whens'>个人基本资料</view>
+    </view>
+    <view class="apply-input-main">
+      <view class="row">
+        <view class="key">真实姓名
+          <text class="d13333"> *</text>
+        </view>
+        <input type="text" placeholder="请输入" class="name-input" bindblur="getname" value="{{oldname}}" />
+      </view>
+      <view class="row">
+        <view class="key">性 别
+          <text class="d13333"> *</text>
+        </view>
+        <radio-group class="radio-group" bindchange="getsex" >
+          <label class="radio" wx:for="{{items}}" style="margin-right:50rpx;">
+            <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+      <view class="row">
+        <view class="key">所在城市
+          <text class="d13333"> *</text>
+        </view>
+        <view class="address-box">
+          <picker bindchange="bindPickerChange" data-name="provinces" value="{{provinceIndex}}" range="{{provinces}}">
+		    <view class="city picker">{{defaultProvince?defaultProvince:provinces[provinceIndex]}}</view>
+		  </picker>
+		  <picker bindchange="bindPickerChange" data-name="citys" value="{{cityIndex}}" range="{{citys}}">
+		    <view class="city picker">{{defaultCity?defaultCity:citys[cityIndex]}}</view>
+		  </picker>
+        </view>
+      </view>
+      <view class="row" style="height: 83rpx;line-height:83rpx">
+        <view style="width: 153rpx;">头像</view>
+        <image src="{{headimg}}" class="apply-header-pic" bindtap="changeimg" />
+      </view>
+    </view>
+  </view>
+  
+  <view class='h_cw mar-top15' style="padding-bottom:0">
+    <view class='base dates h_ksa more-bg' bindtap="toEducatiaonExperience">
+      <view class='whens'>教育经历</view>
+    </view>
+    <view style="padding-left: 26rpx;">
+    	<block wx:for="{{education}}" wx:for-item="edData">
+	    	<view class="ed-row">
+	    		<view style="width:295rpx;">{{edData.school}}</view>
+				<view style="width:280rpx;">{{edData.major}}</view>
+				<view style="width:123rpx;">{{edData.pro}}</view>
+	    	</view>
+	    </block>
+
+    </view>
+  </view>
+	
+  <view class='h_cw mar-top15'>
+    <view class='base dates h_ksa'>
+      <view class='whens'>个人介绍</view>
+    </view>
+     <textarea placeholder="请输入" maxlength="500" class="sum-marize" style="border:none;padding:20rpx;" bindblur="getIntroduce" value="{{introduce}}" />
+     <view class="str-length"><text>30</text>/<text>500</text></view>
+  </view>
+	
+  <view class='h_cw mar-top15'>
+    <view class='base dates h_ksa'>
+      <view class='whens'>教学理念</view>
+    </view>
+     <textarea placeholder="请输入" maxlength="500" class="sum-marize" style="border:none;padding:20rpx;" bindblur="getEdu" value="{{idea}}" />
+     <view class="str-length"><text>30</text>/<text>500</text></view>
+  </view>
+	
+  <view class='h_cw mar-top15'>
+    <view class='base dates h_ksa more-bg' bindtap="toShowStyle">
+      <view class='whens'>风采展示</view>
+    </view>
+    <view class="pic-row">
+    	<block wx:for="{{showPicUrl}}" wx:for-item="imgUrl">
+    		<image src="{{imgUrl}}" />
+    	</block>
+    </view>
+  </view>	
+
+  <view class='h_cw mar-top15'>
+    <view class='base dates h_ksa more-bg' bindtap="tohonorBook">
+      <view class='whens'>荣誉证书</view>
+    </view>
+    <view class="pic-row">
+    	<block wx:for="{{honorPicUrl}}" wx:for-item="imgUrl2">
+    		<image src="{{imgUrl2}}" />
+    	</block>
+    </view>
+  </view>
+  
+  <view class='h_cw mar-top15'>
+    <view class='base dates h_ksa'>
+      <view class='whens'>兴趣爱好</view>
+    </view>
+    <input type="text" placeholder="请输入" class="name-input" style="width: 665rpx;margin:0 auto 27rpx;" bindblur="gethobby" value="{{hobby}}" />
+  </view>
+   
+  <view class='h_cw mar-top15'>
+    <view class='base dates h_ksa more-bg' bindtap="toCoachProject">
+      <view class='whens'>辅导项目</view>
+    </view>
+    <view class="coach-box">
+		<block wx:for-items="{{subjects}}" wx:for-item="subjectItem">
+			<view data-id="{{subjectItem.id}}" data-num="{{index}}" bindtap="choseclass" class="{{subjectItem.isSelected?'coach-acitve':''}}">{{subjectItem.text}}</view>
+		</block>
+	</view>
+  </view>
+	
+  <view class='h_cw mar-top15'>
+    <view class='base dates h_ksa'>
+      <view class='whens'>联系方式</view>
+    </view>
+    <view class="contact-way"> 
+    	<view class="contact-item">
+    		<view class="contact-style">微信：</view>
+        <input type="text" bindblur="getWechat" confirm-type="done" placeholder="请输入" value="{{linkWechat}}" class="name-input" style="width:600rpx;"/>
+    		<!--<input type="text" bindblur="getWechat" placeholder="请输入" value="{{linkWechat}}" class="name-input" style="width:600rpx;"/>-->
+    	</view>
+    	<view class="contact-item">
+    		<view class="contact-style">Q Q：</view>
+    		<input type="text" bindinput="getQQ" placeholder="请输入" value="{{linkqq}}" class="name-input" style="width:600rpx;"/>
+    	</view>
+    	<view class="contact-item">
+    		<view class="contact-style">手机：</view>
+    		<input type="number" bindinput="getMobile" confirm-type="done" placeholder="请输入" value="{{phone}}" class="name-input" style="width:600rpx;"/>
+    	</view>
+    </view>
+  </view>
+	
+  <view class='h_cw mar-top15'>
+    <view class='base dates h_ksa'>
+      <view class='whens'>申请教师类型</view>
+    </view>
+    <view class="teacher-kinds">
+    	<!-- <view>
+    		<image src="https://zetongteacher.zetongedu.com/static/teacher/Images/write-all-icon.png" class="apply-select-pic" />
+    		<text>丹彤教育</text>
+    	</view>
+		<view>
+    		<image src="../../../images/write-not-icon.png" class="apply-select-pic" />
+    		<text>非丹彤教育</text>
+    	</view> -->
+    	<block wx:for="{{teacherKinds}}" wx:for-item="kindsData">
+    		<view bindtap="selectKinds" data-num="{{index}}">
+    			<image src="{{selectIndex==index?'https://zetongteacher.zetongedu.com/static/teacher/Images/write-all-icon.png':'https://zetongteacher.zetongedu.com/static/teacher/Images/write-not-icon.png'}}" class="apply-select-pic" />
+    			<text>{{kindsData}}</text>
+    		</view>
+
+    	</block>
+    </view>
+    <picker bindchange="bindPickerChange" data-name="stores" value="{{storeIndex}}" range="{{stores}}">
+	    <view class="city picker" style="width: 400rpx;margin:50rpx auto 30rpx;">{{stores[storeIndex]}}</view>
+	</picker>
+     
+  </view>
+
+</view>
+<view class="apply-btn" bindtap="submitAuth">申请认证</view>

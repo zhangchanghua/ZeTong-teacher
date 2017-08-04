@@ -1,0 +1,50 @@
+/* pages/teacher/myLeaveMessage/myLeaveMessage.wxss */
+page{
+	background: #fff;
+}
+.leave-list{
+	padding-left: 25rpx;
+}
+.leave-item{
+	display: flex;
+	justify-content: flex-start;
+	padding: 30rpx 0;
+	font-size: 30rpx;
+	color:#3c3c3c;
+	border-bottom: 2rpx solid #f5f5f5;
+	background: url(https://zetongteacher.zetongedu.com/static/teacher/Images/right-arr.png) 97% center no-repeat;
+	background-size: 39rpx 39rpx;
+}
+.message-icon{
+	width: 38rpx;
+	height: 29rpx;
+	margin-right: 35rpx;
+}
+.num{
+	position: absolute;
+	width: 25rpx;
+	height: 25rpx;
+	background: #ec2828;
+	border-radius: 50%;
+	font-size: 20rpx;
+	color: #fff;
+	text-align: center;
+	line-height: 25rpx;
+	top: -5rpx;
+	left: 28rpx;
+}
+.hh_tips{
+  width:60%;
+  height:250rpx;
+  position: fixed;
+  top:50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  border-radius: 20rpx;
+  left:20%;
+  background: rgba(0,0,0,.8);
+  z-index: 99999;
+  text-align: center;
+  color:#fff;
+  line-height: 250rpx;
+}

@@ -1,0 +1,26 @@
+/* pages/teacher/checkPhoto/checkPhoto.wxss */
+.check-pic-box{
+	position: relative;
+
+}
+.check-pic-amount{
+	position: absolute;
+	top: 40rpx;
+	left: 26rpx;
+	width: 90rpx;
+	height: 90rpx;
+	text-align: center;
+	line-height: 90rpx;
+	border-radius: 50%;
+	font-size: 30rpx;
+	color: #fff;
+	background-color: #eb8c27;
+}
+.delete-btn{
+	position: absolute;
+	top: 40rpx;
+	right: 26rpx;
+	width: 53rpx;
+	height: 57rpx;
+	
+}

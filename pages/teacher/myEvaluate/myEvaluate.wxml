@@ -1,0 +1,59 @@
+<view>
+	<view class="evaluate-list">
+	<block wx:for="{{data}}" wx:for-item="dataItem" wx:for-index="dataIndex">
+		<view class="evaluate-item">
+			<view class="item-top">
+				<view class="evaluate-date">{{dataItem.date}}</view>
+				<view class="top-grade">
+					<block wx:for="{{dataItem.generalStar}}" wx:for-item="imgUrl">
+						<image src="{{imgUrl}}" class="star-pic" />
+					</block>
+					{{dataItem.generalComment}}分
+				</view>
+			</view>
+
+
+			<block wx:for="{{data[dataIndex].records}}" wx:for-item="dataite">
+			<view class="evaluate-face-box">
+				<view class="mar25"><image src="{{dataite.headImg}}" class="header-pic" /></view>
+				<view>
+					<view>
+						<text class="evaluate-name">{{dataItem.name}}</text>
+						<block wx:for="{{dataite.starArr1}}" wx:for-item="url">
+							<image src="{{url}}" class="star-pic" />
+						</block>
+						{{dataite.average}}分
+					</view>
+					<view class="evaluate-timer">{{dataite.stime}}</view>
+				</view>
+			</view>
+
+			<view>
+				<block wx:for="{{dataite.professionComment}}" wx:for-item="pData" wx:for-index="ind">
+					<view class="section-grade">
+						<text class="mar25">{{pData.project}}</text>
+						<block wx:for="{{dataite.professionComment[ind].projectStar}}" wx:for-item="starUrl">
+							<image src="{{starUrl}}" class="star-pic" />
+						</block>
+					</view>
+					
+				</block>
+			</view>
+
+			<view class="evaluate-txt" style="display:none">{{dataite.content}}</view>
+			</block>
+
+
+		</view>
+	</block>
+</view>
+</view>
+
+<view class="hh_tips" wx:if="{{empty}}">
+    暂时没有数据~
+</view>
+
+<loading hidden="{{loadingHidden}}">
+	加载中...
+</loading>
+

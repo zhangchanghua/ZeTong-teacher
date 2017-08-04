@@ -1,0 +1,238 @@
+<import src="../../../pages/commom/commom" />
+
+<!--pages/teacher/index/index.wxml-->
+<view class="top-nav" wx:if="{{isShowTopNav}}">
+
+  <!--nav1-->
+  <view class="index-top-nav">
+    <block wx:for="{{nav1Text}}">
+      <view data-id="{{index}}" bindtap="tabChange">
+        <text class='{{nav1Indes==index?"text-cur":""}}'>{{item}}</text>
+      </view>
+    </block>
+  </view>
+
+  <!--nav2-->
+<view class="index-top-nav2">
+    <block wx:for="{{nav2Text}}">
+      <view bindtap="nav2Click" data-id="{{index}}">
+        <text class='{{nav2Indes==index?"text-cur":""}}'>{{item}}</text>
+      </view>
+    </block>
+  </view>
+</view>
+<view class="index-main">
+
+  <!-- 教师未登录，未认证start -->
+  <view class="not-idetification-box" wx:if="{{false}}">
+    <image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/noIdetification-pic.png" class="not-identifi"></image>
+  </view>
+
+  <!-- 教师未登录，未认证start -->
+
+  <!--首页点到start-->
+  <view class="index-clicked" wx:if="{{isStart}}">
+    <view class="index-list">
+      <block wx:for='{{daydata}}' wx:for-item='stu'>
+        <view class="first">{{stu.search}}</view>
+        <block wx:for="{{daydata[index].studata}}" wx:for-item='na' wx:for-index="naindex">
+          <view class="index-item" data-index="{{index}}" data-naindex="{{naindex}}" data-id='{{na.id}}' bindtap='choosel'>
+            <image wx:if="{{na.chose==''}}" src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/select-icon.png" class="index-select-pic"></image>
+            <image wx:elif="{{na.chose==1}}" src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/select-icon-cur.png" class="index-select-pic"></image>
+            <view class="index-item-right">
+              <image src="{{na.headimg}}" class="index-header-pic"></image>
+              <view class="index-child-name">{{na.name}}</view>
+              <view class="index-parent-name">{{na.parentName}}</view>
+              <view class="index-guanxi">{{na.guanxi}}</view>
+            </view>
+          </view>
+        </block>
+      </block>
+
+
+    </view>
+    <view class="index-bottom-nav">
+      <view class="index-bottom-amount">
+        <view>{{dateText}}</view>
+        <view class="index-all-amount">总人数:
+          <text>{{allAmount}}</text>人</view>
+        <view class="index-sure-amount">已签到：
+          <text>{{signAmount}}</text>人</view>
+      </view>
+      <view class="index-bottom-btn">
+        <view bindtap="btnClick" class='{{selectIndex==1?"bottom-cur":""}}' data-id="1">全选</view>
+        <view bindtap="btnClick" class='{{selectIndex==0?"bottom-cur":""}}' data-id="0">全不选</view>
+        <view bindtap="kindClick" class='{{selectIndex1==1?"bottom-cur":""}}' data-id="1">接回</view>
+        <view bindtap="kindClick" class='{{selectIndex1==0?"bottom-cur":""}}' data-id="0">返校</view>
+        <view bindtap="submil" class='{{pass==1?"bottom-cur":""}}' data-id="2">提交</view>
+        <!--<block wx:for="{{btnText}}">
+          <view bindtap="btnClick" class='{{index==selectIndex?"bottom-cur":""}}' data-id="{{index}}"> {{item}} </view>
+        </block>-->
+      </view>
+    </view>
+  </view>
+
+  <!--首页点到end-->
+
+  <!-- 写日报(单写)start -->
+  <view class="index-write-day" wx:if="{{isDaily}}">
+    <view class="index-list">
+      <block wx:for="{{daydata}}">
+
+        <view class="first">{{item.search}}</view>
+        <block wx:for="{{daydata[index].studata}}" wx:for-item='na'>
+          <view class="index-item">
+            <view class="index-item-right" style="margin-left: 74rpx;width:678rpx">
+              <image src="{{na.headimg}}" class="index-header-pic"></image>
+              <view class="index-child-name" style="width:240rpx;">{{na.name}}</view>
+              <view class="index-parent-name">{{na.parentName}}</view>
+              <view class="index-guanxi">{{na.guanxi}}</view>
+              <view wx:if="{{na.stauas==0}}" data-id="{{na.id}}" bindtap='today' class="index-write-btn">写日报</view>
+              <view wx:elif="{{na.stauas==1}}" class="index-writed-btn">已填写</view>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+    <view class="index-big-btn" bindtap="unifyWrite">写日报</view>
+  </view>
+
+  <!-- 写日报end -->
+
+  <!-- 写日报(统一写)start -->
+  <view class="index-write-allDay" wx:if="{{isUnifyDaily}}">
+    <view class="index-list">
+      <block wx:for="{{daydata}}" wx:for-index="insad">
+        <view class="first">{{item.search}}</view>
+        <block wx:for="{{daydata[insad].studata}}" wx:for-item='na'>
+          <view class="index-item" bindtap='chooseimg' data-indexs='{{insad}}' data-myindex='{{index}}' data-idw='{{na.id}}'>
+
+            <image wx:if="{{na.chose==0}}" src="https://zetongteacher.zetongedu.com/static/teacher/Images/write-not-icon.png" class="index-select-pic"></image>
+            <image wx:elif="{{na.chose==1}}" src="https://zetongteacher.zetongedu.com/static/teacher/Images/write-all-icon.png" class="index-select-pic"></image>
+            <view class="index-item-right">
+              <image src="{{na.headimg}}" class="index-header-pic"></image>
+              <view class="index-child-name">{{na.name}}</view>
+              <view class="index-parent-name">{{na.parentName}}</view>
+              <view class="index-guanxi">{{na.guanxi}}</view>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+    <view class="index-big-btn2" bindtap="toWriteDaily">写日报</view>
+    <view class="index-bottom-nav">
+      <view class="index-bottom-btnBox">
+        <view bindtap='qon' data-index='1' class="{{allornot==1?'index-bottom-allSelect':'index-bottom-allNotSelect'}}">全选</view>
+        <view bindtap='qon' data-index='0' class="index-bottom-allNotSelect {{allornot==0?'index-bottom-allSelect':'index-bottom-allNotSelect'}}">全不选</view>
+        <view bindtap='tosurea' class="index-bottom-sureBtn {{allornot==0?'backg':''}}">确定</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 写日报end -->
+
+  <!-- 写月报 start -->
+  <view class="index-write-day" wx:if="{{isMonth}}">
+    <view class="index-list">
+      <block wx:for="{{daydata}}">
+
+        <view class="first">{{item.search}}</view>
+        <block wx:for="{{daydata[index].studata}}" wx:for-item='na'>
+          <view class="index-item">
+            <view class="index-item-right" style="margin-left: 74rpx;width:678rpx">
+              <image src="{{na.headimg}}" class="index-header-pic"></image>
+              <view class="index-child-name" style="width:240rpx;">{{na.name}}</view>
+              <view class="index-parent-name">{{na.parentName}}</view>
+              <view class="index-guanxi">{{na.guanxi}}</view>
+              <view wx:if="{{na.staubs==0}}" data-id="{{na.id}}" bindtap='tomonth' class="index-write-btn">写月报</view>
+              <view wx:elif="{{na.staubs==1}}" class="index-writed-btn">已填写</view>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+    <view class="index-big-btn" bindtap="unifyMonthWrite">批量月报</view>
+  </view>
+
+  <!-- 写月报end -->
+
+  <!-- 写月报(统一写)start -->
+  <view class="index-write-allDay" wx:if="{{isUnifyMonth}}">
+    <view class="index-list">
+      <block wx:for="{{daydata}}" wx:for-index="insad">
+        <view class="first">{{item.search}}</view>
+        <block wx:for="{{daydata[insad].studata}}" wx:for-item='na'>
+          <view class="index-item" bindtap='chooseimg' data-indexs='{{insad}}' data-myindex='{{index}}' data-idw='{{na.id}}'>
+
+            <image wx:if="{{na.chose==0}}" src="https://zetongteacher.zetongedu.com/static/teacher/Images/write-not-icon.png" class="index-select-pic"></image>
+            <image wx:elif="{{na.chose==1}}" src="https://zetongteacher.zetongedu.com/static/teacher/Images/write-all-icon.png" class="index-select-pic"></image>
+            <view class="index-item-right">
+              <image src="{{na.headimg}}" class="index-header-pic"></image>
+              <view class="index-child-name">{{na.name}}</view>
+              <view class="index-parent-name">{{na.parentName}}</view>
+              <view class="index-guanxi">{{na.guanxi}}</view>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+    <view class="index-big-btn2" bindtap="toWriteDaily">批量月报</view>
+    <view class="index-bottom-nav">
+      <view class="index-bottom-btnBox">
+        <view bindtap='qon' data-index='1' class="{{allornot==1?'index-bottom-allSelect':'index-bottom-allNotSelect'}}">全选</view>
+        <view bindtap='qon' data-index='0' class="index-bottom-allNotSelect {{allornot==0?'index-bottom-allSelect':'index-bottom-allNotSelect'}}">全不选</view>
+        <view bindtap='tosurea' class="index-bottom-sureBtn {{allornot==0?'backg':''}}">确定</view>
+      </view>
+    </view>
+  </view>
+  <!--<view class="index-write-monthly" wx:if="{{isMonth}}">
+      <view class="index-list">
+      <view class="first">A</view>
+      <view class="index-item">
+        <view class="index-item-right" style="margin-left: 74rpx;width:678rpx">
+          <image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/index-header.png" class="index-header-pic"></image>
+          <view class="index-child-name" style="width:240rpx;">艾佳</view>
+          <view class="index-parent-name">艾力</view>
+          <view class="index-guanxi">父亲</view>
+          <view class="index-write-btn">写月报</view>
+        </view>
+      </view>
+      <view class="index-item">
+        <view class="index-item-right" style="margin-left: 74rpx;width:678rpx">
+          <image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/index-header.png" class="index-header-pic"></image>
+          <view class="index-child-name" style="width:240rpx;">艾佳</view>
+          <view class="index-parent-name">艾力</view>
+          <view class="index-guanxi">父亲</view>
+          <view class="index-writed-btn">已填写</view>
+        </view>
+      </view>
+      <view class="first">B</view>
+      <view class="index-item">
+        <view class="index-item-right" style="margin-left: 74rpx;width:678rpx">
+          <image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/index-header.png" class="index-header-pic"></image>
+          <view class="index-child-name" style="width:240rpx;">艾佳</view>
+          <view class="index-parent-name">艾力</view>
+          <view class="index-guanxi">父亲</view>
+          <view class="index-write-btn">写月报</view>
+        </view>
+      </view>
+      <view class="index-item">
+        <view class="index-item-right" style="margin-left: 74rpx;width:678rpx">
+          <image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/index-header.png" class="index-header-pic"></image>
+          <view class="index-child-name" style="width:240rpx;">艾佳</view>
+          <view class="index-parent-name">艾力</view>
+          <view class="index-guanxi">父亲</view>
+          <view class="index-writed-btn">已填写</view>
+        </view>
+      </view>
+    </view>
+
+    </view> -->
+  <!-- 写月报 end -->
+
+  <view class="index-zimu" wx:if="{{isZiMu}}">
+    <block wx:for="{{searchLetter}}" wx:for-item="zimuItem">
+      <view bindtap="clickFirst" data-content="{{zimuItem}}">{{zimuItem}}</view>
+    </block>
+  </view>
+</view>

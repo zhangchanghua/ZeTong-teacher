@@ -1,0 +1,25 @@
+/* pages/teacher/coachProject/coachProject.wxss */
+page{
+	background-color: #fff;
+}
+.coach-box {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 70rpx 66rpx 30rpx;
+}
+.coach-box view{
+	margin: 20rpx 30rpx;
+	width: 140rpx;
+	height: 66rpx;
+	line-height: 66rpx;
+	text-align: center;
+	font-size: 28rpx;
+	color: #6f6f6f;
+	border: 2rpx solid #959595;
+	border-radius: 50rpx;
+}
+view.coach-acitve{
+	color: #fff;
+	border: 2rpx solid #eb8c27;
+	background-color: #eb8c27;
+}

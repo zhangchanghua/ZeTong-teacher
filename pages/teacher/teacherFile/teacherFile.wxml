@@ -1,0 +1,197 @@
+<import src="../../../pages/commom/commom.wxml" />
+<view class='base'>
+    <view style="position: relative;">
+        <image class='base' src="{{bg_pic}}" style="width: 750rpx;height: 332rpx;"></image>
+        <image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/change-bg-icon.png" style="position: absolute;width: 62rpx;height: 62rpx;right: 30rpx;top:30rpx;" bindtap="changePic"></image>
+    </view>
+    <view class='base h_headxy row'>
+        <view class='h_sk_contain'>
+            <image class='h_sk' src="{{headImg}}"></image>
+        </view>
+        <view class='col h_sl'>
+            <view class='h_sas row'>
+                <text class='h_names '>{{name}}</text>
+                <view class='h_saw '>
+                    <image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/bg8.png"></image>
+                    <text>{{city}}</text>
+                </view>
+            </view>
+             <view class='base row'>
+             <view class='h_tesq'>
+                 <template is="showbiao" data="{{arrs}}" />
+             </view>
+                 
+                  <text class='h_score'>{{average}}分</text>
+             </view>
+        </view>
+    </view>
+    <view class='base h_wisk'>
+
+        <view class='base h_bosk'>
+            <view class='h_lisk fl'>联系方式</view>
+            <view class=' h_lisd fl'>
+                <view class='h_poas'></view>
+                <view class='h_skla'>
+                    <view class='h_mes1'>微信：{{linkWechat}}</view>
+                    <view class='h_mes1'>QQ：{{linkqq}}</view> 
+                    <view class='h_mes1'>手机：{{phone}}</view>
+                    <image bindtap='callphone' class='h_phonecall' src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/phone.png"></image>  
+                </view>
+            </view>
+        </view>
+
+        <view class='base h_bosk'>
+            <view class='h_lisk fl'>教育经历</view>
+            <view class=' h_lisd fl'>
+                <view class='h_poas'></view>
+                <view class='h_skla'>
+                    <!--<view class='h_mes1'>华南师范大学/幼儿教育/本科</view>
+                    <view class='h_mes1'>华南师范大学/幼儿教育/本科</view>-->
+                    <block wx:for="{{education}}" wx:for-item="educationItem">
+      <view class='h_mes1'>{{educationItem.school}}/{{educationItem.major}}/{{educationItem.pro}}</view>
+    </block> 
+                </view>
+            </view>
+        </view>
+
+         <view class='base h_bosk'>
+            <view class='h_lisk fl'>个人介绍</view>
+            <view class=' h_lisd fl'>
+                <view class='h_poas'></view>
+                <view class='h_skla'>
+                    <view class='h_mes1'>{{introduction}}</view>
+                </view>
+            </view>
+        </view>
+
+         <view class='base h_bosk'>
+            <view class='h_lisk fl'>教学理念</view>
+            <view class=' h_lisd fl'>
+                <view class='h_poas'></view>
+                <view class='h_skla'>
+                    <view class='h_mes1'>{{idea}}</view>
+                </view>
+            </view>
+        </view>
+
+          <view class='base h_bosk'>
+            <view class='h_lisk fl'>风采展示</view>
+            <view class=' h_lisd fl'>
+                <view class='h_poas'></view>
+                <view class='h_skla'>
+                    <view class='base h_ksl'>
+                        <!-- <image src="https://zetongteacher.zetongedu.com/static/teacher/Images/bg2.png"></image>
+                         <image src="https://zetongteacher.zetongedu.com/static/teacher/Images/bg2.png"></image>
+                         <image src="https://zetongteacher.zetongedu.com/static/teacher/Images/bg2.png"></image> -->
+                         <block wx:for="{{images}}" wx:for-item="imageItem">
+                  
+        <image wx:if="{{imageItem.show ==true}}" data-src="{{imageItem.src}}" src="{{imageItem.src}}" bindtap="bigImg"></image>
+      
+    </block>
+                    </view>
+                    <view wx:if="{{images.length > 2 && imageButtonShow == true}}"> <button class='h_more' plain="true" bindtap="showimage">查看更多</button> </view>
+                    
+                </view>
+            </view>
+        </view>
+
+          <view class='base h_bosk'>
+            <view class='h_lisk fl'>荣誉证书</view>
+            <view class=' h_lisd fl'>
+                <view class='h_poas'></view>
+                <view class='h_skla'>
+                    <view class='base h_ksl row'>
+                        <!--<view>
+                            <image src="https://zetongteacher.zetongedu.com/static/teacher/Images/bg2.png"></image>
+                            <text>教师资格证</text>
+                        </view>-->
+                       <block wx:for="{{certificate}}" wx:for-item="certificateItem">
+      <view>
+                            <image wx:if="{{certificateItem.show ==true}}" data-src="{{certificateItem.src}}" bindtap="bigCert" src="{{certificateItem.src}}"></image>
+                            <!--<text wx:if="{{certificateItem.show ==true}}">教师资格证</text>-->
+                        </view>
+    </block>
+                    </view>
+                    <view wx:if="{{certificate.length > 2 &&certsButtonShow==true}}"> <button class='h_more' plain="true" bindtap="showcerts">查看更多</button> </view>
+                    
+                </view>
+            </view>
+        </view>
+
+          <view class='base h_bosk'>
+            <view class='h_lisk fl'>兴趣爱好</view>
+            <view class=' h_lisd fl'>
+                <view class='h_poas'></view>
+                <view class='h_skla'>
+                    <view class='h_mes1'>{{hobby}}</view>
+                </view>
+            </view>
+        </view>
+
+          <view class='base h_bosk'>
+            <view class='h_lisk fl'>辅导项目</view>
+            <view class=' h_lisd fl'>
+                <view class='h_poas'></view>
+                <view class='h_skla'>
+                    <view class='h_slo row fudao' style="padding-top: 5rpx;">
+                    <block wx:for="{{course}}" wx:for-item="courseItem">
+      <text>{{courseItem}}</text>
+    </block>
+                         <!--<text>书法</text>
+                          <text>钢琴</text>
+                           <text>数学</text>-->
+                    </view>
+                </view>
+            </view>
+        </view>
+
+          <view class='base h_bosk'>
+            <!-- <view class='h_lisk fl'>家长评价</view>
+            <view class=' h_lisd fl'>
+                <view class='h_poas'></view>
+                <view class='h_skla'>
+                    <view class='row h_sawq'>
+                        <image class='h_smli' src="https://zetongteacher.zetongedu.com/static/teacher/Images/bg2.png"></image>
+                        <view class='h_skau'>
+                            <view class='row'>
+                                <text class='h_ads1'>李该敏</text>
+                                  <view class='base row h_sls'>
+                                    <view class='h_tesq h_sloa'>
+                                        <template is="showbiao" data="{{arrs}}" />
+                                    </view>
+                                        
+                                        <text class='h_score'>90分</text>
+                                    </view>
+                            </view>
+                            <view class='h_ads2'>2015-06-01    18:24</view>
+                            <view class='h_ads3'>在导游的帮助下，在曼谷的三天过的
+很开心。</view>
+                        </view>
+
+                    </view>
+                      <view class='row h_sawq'>
+                        <image class='h_smli' src="https://zetongteacher.zetongedu.com/static/teacher/Images/bg2.png"></image>
+                        <view class='h_skau'>
+                            <view class='row'>
+                                <text class='h_ads1'>李该敏</text>
+                                  <view class='base row h_sls'>
+                                    <view class='h_tesq h_sloa'>
+                                        <template is="showbiao" data="{{arrs}}" />
+                                    </view>
+                                        
+                                        <text class='h_score'>90分</text>
+                                    </view>
+                            </view>
+                            <view class='h_ads2'>2015-06-01    18:24</view>
+                            <view class='h_ads3'>在导游的帮助下，在曼谷的三天过的
+很开心。</view>
+                        </view>
+                    </view>
+
+                </view>
+                 <button class='h_more' plain="true">查看更多</button>
+            </view> -->
+        </view>
+
+    </view>
+</view>

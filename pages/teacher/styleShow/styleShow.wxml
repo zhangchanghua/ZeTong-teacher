@@ -1,0 +1,19 @@
+<!-- 没有上传照片的情况 -->
+<view class="show-wrap show-wrap-bg" wx:if="{{isEmpty}}">
+	<view class="show-pic-box">
+		<image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/add-pic-bg.png" bindtap="toAddPic"/>
+	</view>
+</view>
+
+<!-- 上传照片的情况 -->
+<view wx:if="{{!isEmpty}}">
+	<view class="images-wrapper">
+      <view class="images-list">
+        <block wx:for-items="{{imageList}}" wx:for-item="image">
+          <image src="{{image}}" class="images-image" data-src="{{image}}" bindtap="previewImage"></image>
+        </block>
+        <image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/add-pic-bg.png" class="images-image" bindtap="chooseImage"></image>
+      </view>
+    </view>
+	<view class="show-save-btn" bindtap="authImages">保存</view>
+</view>

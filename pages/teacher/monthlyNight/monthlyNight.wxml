@@ -1,0 +1,25 @@
+<import src="../../../pages/commom/commom.wxml" />
+<view class="index-writDay-wantuo">
+  <view class="monthlyAll-title">
+    <view>2017年6月</view>
+    <view>
+      <text>晚托</text>
+    </view>
+  </view>
+  <template is="zan" data="{{arrs}}" />
+  <view class='h_cw'>
+    <view class='base dates h_ksa' style="border-top: 20rpx solid #f5f5f5;">
+      <view class='whens'>作业掌握情况</view>
+    </view>
+    <template is="homework" data="{{homeworkArr}}" />
+  </view>
+
+  <view class='h_cw'>
+    <view class='base dates h_ksa' style="border-top: 20rpx solid #f5f5f5;">
+      <view class='whens'>本月综述</view>
+    </view>
+    <textarea placeholder="请输入" maxlength="500" class="sum-marize" bindblur="bindTextAreaBlur" />
+  </view>
+
+  <view class="index-wantuo-sbm" style="margin: 50rpx auto;" bindtap="subMonthReport">提交</view>
+</view>

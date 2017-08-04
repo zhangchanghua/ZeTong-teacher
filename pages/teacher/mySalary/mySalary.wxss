@@ -1,0 +1,54 @@
+/* pages/teacher/mySalary/mySalary.wxss */
+page{
+	background: #fff;
+}
+.salary-item{
+	width: 100%;
+	margin-bottom: 30rpx;
+	font-size: 28rpx;
+	color: #6f6f6f;
+	background-size: 36rpx 248rpx;
+}
+.line{
+	position: fixed;
+	width: 2rpx;
+	height: 1174rpx;
+	background: #7eb229;
+	left:40rpx;
+	top: 0;
+}
+.dot{
+	margin: 24rpx;
+	width: 36rpx;
+	height: 36rpx;
+	vertical-align: middle;
+}
+.salary-date{
+
+	font-size: 30rpx;
+	color:#7eb229;
+}
+.main-box{
+	width: 565rpx;
+	margin: 0 auto;
+	padding: 0rpx 40rpx 30rpx;
+	background-color: #f0fbff;
+}
+.main-box view{
+	margin-top: 30rpx;
+}
+.hh_tips{
+  width:60%;
+  height:250rpx;
+  position: fixed;
+  top:50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  border-radius: 20rpx;
+  left:20%;
+  background: rgba(0,0,0,.8);
+  z-index: 99999;
+  text-align: center;
+  color:#fff;
+  line-height: 250rpx;
+}

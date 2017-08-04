@@ -1,0 +1,8 @@
+/* pages/commom/commom.wxss */
+.sum-marize{
+	width: 700rpx;
+	height: 220rpx;
+	padding: 10rpx;
+	border: 1px solid #e5e5e5;
+	background-color: #f0fbff;
+}

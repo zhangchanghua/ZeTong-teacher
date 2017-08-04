@@ -1,0 +1,33 @@
+/* pages/teacher/addEducationExperience/addEducationExperience.wxss */
+.info-row{
+	display: flex;
+	justify-content: space-around;
+	padding: 30rpx 0;
+	font-size: 30rpx;
+	color: #3c3c3c;
+	background-color: #fff;
+	border-bottom: 2rpx solid #f5f5f5;
+}
+.key{
+	width: 44%;
+}
+.val{
+	width: 30%;
+	text-align: right;
+	color: #6f6f6f;
+}
+.right-pic{
+	background: url(https://zetongteacher.zetongedu.com/static/teacher/Images/right-arr.png) 99% 60% no-repeat #fff;
+	background-size: 39rpx 39rpx;
+}
+.save-btn{
+	width: 700rpx; 
+	height: 92rpx;
+	line-height: 92rpx;
+	text-align: center;
+	margin: 100rpx auto 20rpx;
+	font-size: 36rpx;
+	color: #fff;
+	background-color: #7eb229;
+	border-radius: 10rpx;
+}

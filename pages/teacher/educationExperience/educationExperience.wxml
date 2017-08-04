@@ -1,0 +1,18 @@
+<view class="experience-top" bindtap="toAddEducation">
+	<image src='http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/add-icon.png' />
+	添加教育经历
+</view>
+
+<view class="school-list">
+	<block wx:for="{{status}}" wx:for-item="statusItem" wx:for-index="ind">
+		<view class="school-row">
+			<text class="key">{{statusItem.text}}</text>
+			<image data-ind="{{ind}}" src="{{statusItem.iconUrl}}" class="icon-pic" bindtap="deleteSchool" />
+		</view>
+
+	</block>
+	<view class="to-right">
+		<view class="change-status-btn" bindtap="changeStatus">{{btnText}}</view>
+	</view>
+	
+</view>

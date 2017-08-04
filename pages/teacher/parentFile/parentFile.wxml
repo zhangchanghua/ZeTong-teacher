@@ -1,0 +1,11 @@
+<view class="parent-file-box">
+	<block wx:for="{{parentFiles}}" wx:for-item="filesItem">
+		<view class="pf-row">
+			<view>{{filesItem.key}}:</view>
+			<view style="color:#3c3c3c;">
+				{{filesItem.val}} 
+				<image wx:if="{{filesItem.icon}}" src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/phone-icon.png" class="phone-icon" />
+			</view>
+		</view>
+	</block>
+</view>

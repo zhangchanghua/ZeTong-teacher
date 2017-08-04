@@ -1,0 +1,52 @@
+/* pages/teacher/styleShow/styleShow.wxss */
+page{
+	height: 100%;
+	background: #fff;
+}
+.show-wrap{
+	width: 100%;
+	min-height: 100%;
+}
+.show-wrap-bg{
+	background: url(http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/check-photo-logo.png) center 30% no-repeat #fff;
+	background-size: 286rpx 239rpx; 
+}
+.show-pic-box{
+	padding: 26rpx;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.show-pic-box image{
+	display: block;
+	width: 150rpx;
+	height: 150rpx;
+ 
+}
+.show-save-btn{
+	width: 700rpx;
+	height: 95rpx;
+	line-height: 95rpx;
+	margin: 100rpx auto 30rpx;
+	text-align: center;
+	font-size: 36rpx;
+	color: #fff;
+	background-color: #7eb229;
+	border-radius: 10rpx;
+}
+.images-wrapper {
+  padding: 20rpx;
+  background-color: #fff;
+}
+.images-wrapper-text {
+  font-size: 28rpx;
+}
+.images-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.images-image {
+  width: 180rpx;
+  height: 160rpx;
+  margin: 10rpx 15rpx;
+}

@@ -1,0 +1,8 @@
+<view class="coach-box">
+	<block wx:for-items="{{subjects}}" wx:for-item="subjectItem">
+		<view data-id="{{subjectItem.id}}"  data-num="{{index}}"   bindtap="choseclass"  class="{{subjectItem.isSelected?'coach-acitve':''}}">{{subjectItem.text}}</view>
+
+	</block>
+
+</view>
+<view bindtap="saveClass" class="show-save-btn" style="width:700rpx;border-radius:10rpx;background-color:#7eb229;color:#fff;font-size:36rpx;line-height:90rpx;margin:40rpx auto;height:90rpx;text-align:center;">保存</view>

@@ -1,0 +1,103 @@
+<view class='base'>
+  <view class="section section_gap">
+      <scroll-view class="h_scol" scroll-x="true" style="width: 100%">
+        <block wx:for="{{dateData}}" wx:for-item="dataItem" wx:for-index="dataIndex">
+          <view  class="{{dataItem[0]==ltime ? 'col scol_active' : 'col'}}">
+            <text>{{dataItem[0]}}</text>
+            <text>{{dataItem[0]==today? '今天':dataItem[1]}}</text>
+          </view>
+          <!-- <view class="col scol_active">
+            <text>21</text>
+            <text>周二</text>
+          </view>
+           <view class="col">
+            <text>22</text>
+            <text>周三</text>
+          </view>
+           <view class="col">
+            <text>23</text>
+            <text>周四</text>
+          </view>
+           <view class="col">
+            <text>24</text>
+            <text>周五</text>
+          </view>
+           <view class="col">
+            <text>25</text>
+            <text>周六</text>
+          </view>
+           <view class="col">
+            <text>26</text>
+            <text>周天</text>
+          </view>
+           <view  class="col">
+            <text>20</text>
+            <text>周一</text>
+          </view>
+           <view class="col">
+            <text>21</text>
+            <text>周二</text>
+          </view>
+           <view class="col">
+            <text>22</text>
+            <text>周三</text>
+          </view>
+           <view class="col">
+            <text>23</text>
+            <text>周四</text>
+          </view>
+           <view class="col">
+            <text>24</text>
+            <text>周五</text>
+          </view>
+           <view class="col">
+            <text>25</text>
+            <text>周六</text>
+          </view>
+           <view class="col">
+            <text>26</text>
+            <text>周天</text>
+          </view> -->          
+        </block>
+      </scroll-view>
+      <view class='h_left'></view>
+       <view class='h_right'></view>
+    </view>
+
+    <view class='h_apso'>
+    <view class='base dates'>
+      <view class='whens'>请假项目</view>
+    </view>
+     <view class='base row'>
+        <view class='base h_sa'>
+            <image wx:if="{{type==0}}" src="https://zetongteacher.zetongedu.com/static/teacher/Images/write-all-icon.png"></image>
+            <image wx:else src="https://zetongteacher.zetongedu.com/static/teacher/Images/write-not-icon.png"></image>
+            <text>午托</text>
+        </view>
+
+
+        <view class='base h_sa'>
+            <image wx:if="{{type==1}}" src="https://zetongteacher.zetongedu.com/static/teacher/Images/write-all-icon.png"></image>
+            <image wx:else src="https://zetongteacher.zetongedu.com/static/teacher/Images/write-not-icon.png"></image>
+            <text>晚托</text>
+        </view>
+     </view>
+    </view>
+
+
+     <view class='h_apso'>
+    <view class='base dates'>
+      <view class='whens'>请假原因</view>
+    </view>
+     <view class='base row h_aqs'>
+       <textarea auto-height maxlength="-1" placeholder="请输入请假原因" class='h_aqsw' value="{{reason}}" disabled='true' />
+     </view>
+     <!-- <button class='h_submit'>提交</button> -->
+     <view class='col1 h_teames'>
+            <image src="{{headImg}}" class="h_header_pic"></image>
+            <view >{{name}}</view>
+        </view>
+    </view>
+
+
+</view>

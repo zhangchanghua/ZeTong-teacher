@@ -1,0 +1,60 @@
+/* pages/teacher/mine/mine.wxss */
+.mine-top{
+	width: 750rpx;
+	height: 362rpx;
+	background: url(http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/my-bg1.png) no-repeat #fff;
+	background-size: 100% auto;
+	text-align: center;
+	color: #fff;
+}
+.header-pic-box{
+	padding-top: 55rpx;
+}
+.header-pic{
+	margin: 0 auto 20rpx;
+	display: block;
+	width: 175rpx;
+	height: 175rpx;
+	border-radius: 50%;
+}
+.mine-list{
+	padding:20rpx 0 40rpx;
+	font-size: 36rpx;
+	color: #6f6f6f;
+	background: #fff;
+	text-align: center;
+}
+.mine-item{
+	padding: 30rpx 0;
+}
+.mine-item text{
+	padding: 30rpx 0;
+	border-bottom: 2rpx solid #e5e5e5;
+}
+.mine-item-bg1{
+	background: url(http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/my-rz-icon.png) 35rpx center no-repeat;
+	background-size: 31rpx 33rpx ;
+}
+.mine-item-bg2{
+	background: url(http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/my-pj-icon.png) 35rpx center no-repeat;
+	background-size: 31rpx 33rpx ;
+}
+.mine-item-bg3{
+	background: url(http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/my-gz-icon.png) 35rpx center no-repeat;
+	background-size: 31rpx 33rpx ;
+}
+.mine-item-bg4{
+	background: url(http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/my-msg-icon.png) 35rpx center no-repeat;
+	background-size: 31rpx 33rpx ;
+}
+.sign-out-btn{
+	width: 220rpx;
+	height: 70rpx;
+	margin: 45rpx auto;
+	text-align: center;
+	line-height: 70rpx;
+	background-color: #dedede;
+	font-size: 30rpx;
+	color: #6f6f6f;
+	border-radius: 10rpx;
+}

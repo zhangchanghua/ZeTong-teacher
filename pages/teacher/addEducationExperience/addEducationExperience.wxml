@@ -1,0 +1,21 @@
+<view class="info-list">
+	<view class="info-row">
+		<view class="key">学校</view>
+		<!--<view class="val">华南理工大学</view>-->
+		<view class="val val1"><input bindinput="getSchool" placeholder="请输入学校名" value='{{school}}' /></view>
+		
+	</view>
+	<view class="info-row right-pic" bindtap="toSelectEducation">
+		<view class="key">学历</view>
+		<view class="val">
+			<text>{{edu}}</text>
+		</view>
+	</view>
+	<view class="info-row">
+		<view class="key">专业</view>
+		<!--<view class="val">材料科学</view>-->
+		<view class="val val1"><input bindinput="getPro" placeholder="请输入专业名"  value='{{pro}}' /></view>
+	</view>
+
+</view>
+<view class="save-btn" bindtap="saveEdu">保存</view>

@@ -1,0 +1,153 @@
+/* pages/teacher/applyCertificate/applyCertificate.wxss */
+.apply-input-main{
+	padding: 0 26rpx;
+	font-size: 28rpx;
+	color: #3c3c3c;
+}
+.d13333{
+	color: #d13333;
+}
+.name-input{
+	width: 506rpx;
+	padding: 0 20rpx;
+	font-size: 28rpx;
+	color: #6f6f6f;
+	height: 60rpx;
+	line-height: 60rpx;
+	background-color: #f0f0f0;
+	vertical-align: middle;
+	border: 1px solid #e5e5e5;
+	border-radius: 5rpx;
+}
+.key{
+	width: 153rpx;
+	height: 60rpx;
+	line-height: 60rpx;
+}
+.row{
+	margin-bottom: 40rpx;
+	height: 60rpx;
+	line-height: 60rpx;
+}
+.wx-radio {
+	margin-right:5px;
+
+}
+.address-box{
+	width: 548rpx;
+	display: flex;
+	justify-content: space-between;
+}
+.city{
+	width: 240rpx;
+	height: 58rpx;
+	margin-right: 30rpx;
+	line-height: 60rpx;
+	vertical-align: middle;
+	border: 1px solid #e5e5e5;
+	border-radius: 5rpx;
+	text-align: center;
+	font-size: 26rpx;
+	color: #6f6f6f;
+	background: url(https://zetongteacher.zetongedu.com/static/teacher/Images/arr-bg.png) 95% center no-repeat #f0f0f0;
+	background-size: 27rpx 35rpx;
+}
+.apply-header-pic{
+	width: 83rpx;
+	height: 83rpx;
+}
+.mar-top15{
+	margin-top: 15rpx;
+}
+.more-bg{
+	background: url(https://zetongteacher.zetongedu.com/static/teacher/Images/more-icon.png) 95% center no-repeat;
+	background-size: 13rpx 24rpx;
+}
+.ed-row{
+	display: flex;
+	flex-direction: row;
+	padding: 35rpx 0;
+	font-size: 28rpx;
+	color: #3c3c3c;
+	border-bottom: 1px solid #f5f5f5; 
+}
+.str-length{
+	width: 680rpx;
+	padding:20rpx;
+	margin: 0 auto 27rpx;
+	background:#f0fbff;
+	text-align:right;
+	font-size:26rpx;
+	color:#6f6f6f;
+}
+.pic-row{
+	/*display: flex;
+	justify-content: space-around;*/
+	width: 100%;
+		display: flex;	/*flex布局*/
+		flex-wrap: wrap;	/*换行*/
+		box-sizing: border-box;
+}
+.pic-row image{
+	width: 80rpx;
+	height: 180rpx;
+	margin-bottom: 3rpx;
+	flex: 0 0 32.35%;
+	border: 1px solid white;
+}
+.coach-box {
+	display: flex;
+	flex-wrap: wrap;
+}
+.coach-box view{
+	margin: 20rpx 50rpx;
+	width: 140rpx;
+	height: 66rpx;
+	line-height: 66rpx;
+	text-align: center;
+	font-size: 28rpx;
+	color: #6f6f6f;
+	border: 2rpx solid #959595;
+	border-radius: 50rpx;
+}
+view.coach-acitve{
+	color: #fff;
+	border: 2rpx solid #eb8c27;
+	background-color: #eb8c27;
+}
+.contact-item{
+	display: flex;
+	flex-direction: row;
+	width: 700rpx;
+	margin: 0 auto 36rpx;
+	height: 60rpx;
+	line-height: 60rpx;
+	font-size: 28rpx;
+	color: #3c3c3c;
+}
+.contact-style{
+	width: 100rpx;
+}
+.apply-select-pic{
+	width: 39rpx;
+	height: 39rpx;
+	vertical-align: bottom;
+	margin-right: 30rpx; 
+}
+.teacher-kinds{
+	display: flex;
+	justify-content: space-around;
+	font-size: 30rpx;
+	color: #3c3c3c;
+}
+.apply-btn{
+	width: 700rpx;
+	margin: 40rpx auto;
+	height: 90rpx;
+	text-align: center;
+	line-height: 90rpx;
+	font-size: 36rpx;
+	color: #fff;
+	background-color: #7eb229;
+	border-radius: 10rpx;
+}

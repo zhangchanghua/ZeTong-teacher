@@ -1,0 +1,227 @@
+/* pages/teacher/index/index.wxss */
+page{
+    height: 100%;
+}
+.index-top-nav,.index-top-nav2{
+    display: flex;
+    padding: 15rpx 0;
+    flex-direction: row;
+    justify-content: center;
+}
+.index-top-nav view{
+    width: 33.3333%;
+    text-align: center;
+    color: #3c3c3c;
+    font-size: 30rpx;
+}
+.index-top-nav2 view{
+    /*width: 28%;*/
+    width:33.3333%;
+    text-align: center;
+    color: #3c3c3c;
+    font-size: 30rpx;
+}
+.text-cur{
+    color: #7eb229;
+    border-bottom: 2rpx solid #7eb229;
+}
+.index-list{
+    position: relative;
+    margin-top: 50rpx;
+    padding-bottom: 162rpx;
+}
+.index-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #fff;
+}
+.index-item-right{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 96rpx;
+    width: 622rpx;
+    font-size: 26rpx;
+    color: #3c3c3c;
+    border-bottom: 2rpx solid #e5e5e5;
+}
+.index-select-pic{
+    display: block;
+    margin: 0 50rpx;
+    width: 46rpx;
+    height: 46rpx;
+}
+.index-header-pic{
+    display: block;
+    margin-right: 22rpx;
+    width: 59rpx;
+    height: 59rpx;
+}
+.first{
+    padding: 15rpx 50rpx 15rpx;
+}
+view.index-child-name{
+    width: 330rpx;
+}
+.index-zimu{
+    position: absolute;
+    font-size: 24rpx;
+    color: #6f6f6f;
+    top: 16%;
+    right: 0;
+    z-index: 100;
+}
+.index-zimu view{
+    margin-bottom: 5rpx;
+}
+
+.index-bottom-nav{
+    position: fixed;
+    width: 100%;
+    bottom:0;
+    padding: 20rpx 0;
+    background-color: #fff;
+}
+.index-bottom-amount{
+    display: flex;
+    flex-direction: row;
+    width: 600rpx;
+    margin: 0 auto;
+    font-size: 27rpx;
+    color: #3c3c3c;
+}
+.index-bottom-amount view{
+    width: 33.33%;
+}
+.index-all-amount{
+    text-align: center;
+}
+.index-sure-amount{
+    text-align: right;
+}
+.index-bottom-btn{
+    display: flex;
+    flex-direction: row;
+    width: 700rpx;
+    margin: 30rpx auto 0;
+    justify-content: space-around;
+}
+.index-bottom-btn view{
+    padding: 0;
+    margin: 0;
+    display: block;
+    width: 100rpx;
+    height: 55rpx;
+    text-align: center;
+    line-height: 50rpx;
+    font-size: 24rpx;
+    color: #7eb229;
+    background-color: #fff;
+    border: 2rpx solid #7eb229;
+    border-radius: 8rpx;
+}
+view.bottom-cur{
+    color: #fff;
+    background-color: #7eb229;
+}
+/*教师没登录，没认证*/
+.index-main{
+    display: flex;
+    height: 100%;
+    flex: 1;
+    flex-direction: column;
+}
+.not-idetification-box{
+    display: flex;
+    flex: 1;
+    height: 100%;
+    background-color: #fff;
+}
+.not-identifi{
+    display: block;
+    margin: 250rpx auto;
+    width: 451rpx;
+    height: 369rpx;
+}
+/*写日报（单个写）*/
+.index-write-btn,.index-writed-btn{
+    padding: 0;
+    margin: 0;
+    width: 115rpx;
+    height: 55rpx;
+    line-height: 55rpx;
+    color: #fff;
+    font-size: 26rpx;
+    text-align: center;
+    background-color: #eb8c27;
+    border-radius: 50rpx;
+}
+.index-writed-btn{
+    background-color:#bdbdbd;
+}
+.index-child-name,.index-parent-name,.index-guanxi{
+    width: 95rpx;
+}
+.index-big-btn,.index-big-btn2{
+    position: fixed;
+    width: 118rpx;
+    height: 118rpx;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 118rpx;
+    border: 10rpx solid #b1d96f;
+    background-color: #7eb229;
+    font-size: 26rpx;
+    color: #fff;
+    right: 5%;
+    top: 80%;
+}
+/*写日报（统一写）*/
+.index-bottom-btnBox{
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+.index-bottom-allNotSelect{
+    width: 125rpx;
+    height: 65rpx;
+     text-align: center;
+    border-radius: 50rpx;
+    font-size: 26rpx;
+    color: #bdbdbd;
+      margin-top: 8rpx;
+     line-height: 65rpx;
+    background-color: #fff;
+    border: 2rpx solid #bdbdbd;
+    margin-left: 25rpx;
+}
+.index-bottom-allSelect{
+    width: 125rpx;
+    margin-left: 25rpx;
+    margin-top: 8rpx;
+    height: 65rpx;
+    text-align: center;
+    line-height: 65rpx;
+    background-color: #eb8c27;
+    border-radius: 50rpx;
+    border:2rpx solid #eb8c27;
+    font-size: 26rpx;
+    color: #fff;
+}
+.index-bottom-sureBtn{
+    width: 175rpx;
+    margin-left: 225rpx;
+    height: 75rpx;
+    text-align: center;
+    line-height: 75rpx;
+    font-size: 30rpx;
+    color: #fff;
+    background-color: #7eb229;
+    border-radius: 50rpx;
+}
+.backg{
+     background-color: #bdbdbd!important;
+}

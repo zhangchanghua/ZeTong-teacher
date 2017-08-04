@@ -1,0 +1,19 @@
+<view wx:if="{{messageData.length}}">
+<view class="leave-list">
+	<block wx:for="{{messageData}}" wx:for-item="messageItem">
+		<view class="leave-item" bindtap="toDetail" data-id="{{messageItem.id}}">
+			<view style="position: relative;">
+				<view class="num" wx:if="{{!messageItem.isReaded}}">{{messageItem.amount}}</view>
+				<image src="{{messageItem.imgUrl}}" class="message-icon" />
+			</view>
+			{{messageItem.text}}
+		</view>
+	</block>
+
+</view>
+</view>
+<view wx:else>
+<view class="hh_tips" >
+    暂时没有数据~
+</view>
+</view>

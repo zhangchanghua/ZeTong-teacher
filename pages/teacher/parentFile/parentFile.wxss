@@ -1,0 +1,22 @@
+/* pages/teacher/parentFile/parentFile.wxss */
+.parent-file-box{
+	font-size: 28rpx;
+	color: #6f6f6f;
+	background-color: #fff;
+}
+.pf-row{
+	padding: 30rpx 0;
+	display: flex;
+	justify-content: space-round;
+	border-bottom: 2rpx solid #f5f5f5;
+}
+.pf-row view{
+	width: 333rpx;
+	padding-left: 42rpx;
+}
+.phone-icon{
+	width: 40rpx;
+	height: 40rpx;
+	vertical-align: bottom;
+	margin-left: 10rpx;
+}

@@ -1,0 +1,56 @@
+{
+  "pages":[
+     
+    
+    "pages/teacher/index/index",  
+    "pages/login/login",
+    "pages/commom/commom",
+
+    
+    "pages/teacher/mine/mine",    
+    "pages/teacher/writeDailyNight/writeDailyNight",
+    "pages/teacher/writeDailyNoon/writeDailyNoon",
+    "pages/teacher/writeDailyAllNoon/writeDailyAllNoon",
+    "pages/teacher/monthlyNoon/monthlyNoon",
+    "pages/teacher/monthlyNight/monthlyNight",
+    "pages/teacher/monthlyAll/monthlyAll",
+    "pages/teacher/checkPhoto/checkPhoto",
+    "pages/teacher/styleShow/styleShow",
+    "pages/teacher/teacherFile/teacherFile",
+    "pages/teacher/coachProject/coachProject",
+    "pages/teacher/educationExperience/educationExperience",
+    "pages/teacher/parentFile/parentFile",    
+    "pages/teacher/honorBook/honorBook",
+    "pages/teacher/honorBookList/honorBookList",
+    "pages/teacher/educationSelect/educationSelect",
+    "pages/teacher/leave/leave",
+    "pages/teacher/addEducationExperience/addEducationExperience",
+    "pages/teacher/mySalary/mySalary", 
+    "pages/teacher/myEvaluate/myEvaluate",
+    "pages/teacher/applyCertificate/applyCertificate",
+    "pages/teacher/myLeaveMessage/myLeaveMessage"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#7eb229",
+    "navigationBarTitleText": "泽童老师",
+    "navigationBarTextStyle":"white"
+  },
+    "tabBar": {
+      "borderStyle": "white",
+      "backgroundColor":"#fff",
+      "selectedColor": "#7eb229",
+      "color": "#9c9c9c",
+      "list": [{
+        "pagePath": "pages/teacher/index/index",
+        "text": "教育中心",
+        "iconPath": "pages/images/index-store-icon.png",
+        "selectedIconPath": "pages/images/index-store-icon-cur.png"
+      },{
+        "pagePath": "pages/teacher/mine/mine",
+        "text": "我的",
+        "iconPath": "pages/images/index-user-icon.png",
+        "selectedIconPath": "pages/images/index-user-icon-cur.png"
+      }]
+    }
+}

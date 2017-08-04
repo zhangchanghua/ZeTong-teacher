@@ -1,0 +1,7 @@
+<import src="../../../pages/commom/commom.wxml" />
+<view class="index-writDay-wantuo">
+<view class="index-wantuo-title" style="padding-bottom: 20rpx;"><text class="idnex-wutuo-date">{{dateText}}</text> <text>全托</text></view>
+<template is="zan" data="{{arrs}}" />
+
+<view class="index-wantuo-sbm" bindtap="subReport">提交</view>
+</view>

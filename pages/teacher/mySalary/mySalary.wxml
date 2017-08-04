@@ -1,0 +1,27 @@
+
+<view class="line" wx:if="{{!empty}}"></view>
+<view class="salary-list">
+	<block wx:for="{{salaryData}}" wx:for-item="salaryItem">
+		<view class="salary-item">
+			<view class="salary-date">
+				<image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/slide-border.png" class="dot" />
+				<text style="vertical-align:middle;">{{salaryItem.month}}</text>
+			</view>
+			<view class="main-box">
+				<view class="grade">我的评分：<text>{{salaryItem.averageMark}}</text>分</view>
+				<view class="amount">我的工资：<text>{{salaryItem.salary}}</text></view>
+			</view>
+		</view>
+
+	</block>
+
+</view>
+
+
+<!-- <image src="https://zetongteacher.zetongedu.com/static/teacher/Images/nodata.png"></image> -->
+<view class="hh_tips" wx:if="{{empty}}">
+    暂时没有数据~
+</view>
+<loading hidden="{{loadingHidden}}">
+	加载中...
+</loading>

@@ -1,0 +1,6 @@
+<view class="diploma-list">
+	<block wx:for="{{diplomaList}}" wx:for-item="list" wx:for-index="ind">
+		<view class="{{curIndex==ind?'diploma-row select-bg':'diploma-row'}}" bindtap="bindSelect" data-num="{{ind}}">{{list}}</view>
+	</block>
+	
+</view>

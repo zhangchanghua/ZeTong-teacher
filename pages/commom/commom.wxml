@@ -1,0 +1,56 @@
+<!--表情点赞 (写日报)-->
+<template name="zan">
+  <view class='h_cw'>
+    <block wx:for="{{arrs}}" wx:for-index="allindex" wx:for-item="allitem">
+      <view class='base dates h_ksa' style="border-top: 20rpx solid #f5f5f5;" wx:if="{{allitem.showXiguanBol}}">
+        <view class='whens'>{{allitem.xiguan}}</view>
+      </view>
+      <block wx:for="{{arrs[allindex].bodys}}" wx:for-index="bodyindex" wx:for-item="bodysitem">
+        <view class='row h_tes'>
+          <view class='h_ctxt'>{{bodysitem.text}}</view>
+          <view class='h_imgh'>
+            <block wx:for="{{arrs[allindex].bodys[bodyindex].ads}}" wx:for-item="adsitem" wx:for-index="adsindex">
+              <image data-allindex="{{allindex}}" data-arrind="{{arrs[allindex].bodys[bodyindex].idd}}" bindtap="zans" data-index="{{adsindex}}" src="{{adsitem.src}}"></image>
+            </block>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+</template>
+
+<!-- 写月报 作业掌握情况 -->
+<template name="homework">
+  <block wx:for="{{homeworkArr}}" wx:for-item="homeworkItem" wx:for-index="ind">
+    <view class="homeworkBox">
+      <view class="subject">{{homeworkItem.subject}}：</view>
+      <view class="up-grade">{{homeworkItem.grade}}</view>
+       <textarea id='{{homeworkItem.id}}' class='h_xuiao'  maxlength="500" bindblur="getHomework"/>
+        <!--<view class="homework-point">
+        <block wx:for="{{homeworkArr[ind].points}}" wx:for-item="contentItem" wx:for-index="num">
+          <view>{{num+1}}.{{contentItem}}</view>
+          </block>
+        </view>-->
+
+      
+    </view>
+  </block>
+ 
+</template>
+
+<!--获取表情-->
+<template name="showbiao">
+    <block wx:for="{{arrs}}" wx:for-index="allindex" wx:for-item="allitem">
+      <block wx:for="{{arrs[allindex].bodys}}" wx:for-index="bodyindex" wx:for-item="bodysitem">
+        <view class='row h_tes' style="padding-top:0;">
+          <view class='h_ctxt'>{{bodysitem.text}}</view>
+          <view class='h_imgh'>
+            <block wx:for="{{arrs[allindex].bodys[bodyindex].ads}}" wx:for-item="adsitem" wx:for-index="adsindex">
+              <image data-allindex="{{allindex}}" data-arrind="{{arrs[allindex].bodys[bodyindex].idd}}"  src="{{adsitem.src}}"></image>
+            </block>
+          </view>
+        </view>
+      </block>
+    </block>
+
+</template>

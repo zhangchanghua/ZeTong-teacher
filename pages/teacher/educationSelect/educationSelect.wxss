@@ -1,0 +1,16 @@
+/* pages/teacher/educationSelect/educationSelect.wxss */
+.diploma-list{
+	padding-left: 26rpx;
+	font-size: 30rpx;
+	color: #3c3c3c;
+	background-color: #fff;
+}
+.diploma-row{
+	padding: 37rpx 0;
+	border-bottom: 2rpx solid #f5f5f5;
+	background-color: #fff;
+}
+.select-bg{
+	background: url(http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/gou-icon.png) 90% center no-repeat;
+	background-size: 39rpx 27rpx;
+}

@@ -1,0 +1,35 @@
+<view class="honor-box">
+  <view class="experience-top">
+    <image src='http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/add-icon.png'  bindtap="chooseImage" ></image> 新增
+  </view>
+
+
+<view class="images-list">
+        <block wx:for-items="{{imageList}}" wx:for-item="image">
+          <image src="{{image}}" class="images-image" data-src="{{image}}" bindtap="previewImage"></image>
+        </block>
+      </view>
+  <!--<view>
+		<view class="honor-pic">
+			<view class="honor-title">教师资格证</view>
+			<view class="honor-pic-box">
+		        <image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/js-zs.jpg" class="zs-pic"></image>
+			</view>
+		</view>
+		<view class="delete-btn" wx:if="{{true}}"><button size="mini">删除</button></view>
+	</view>-->
+  <block wx:for="{{certificate}}" wx:for-item="certificateItem">
+    <view>
+      <view class="honor-pic">
+        <view class="honor-title">{{certificateItem.title}}</view>
+        <view class="honor-pic-box">
+          <image src="{{certificateItem.src}}" class="zs-pic"></image>
+        </view>
+      </view>
+      <view class="delete-btn" wx:if="{{true}}">
+        <button size="mini">删除</button>
+      </view>
+    </view>
+  </block>
+  <view class="show-save-btn" bindtap="saveCerts">保存</view>
+</view>

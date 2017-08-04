@@ -1,0 +1,7 @@
+<view class="check-pic-box">
+	<image src="{{img}}" style="display:block;width: 750rpx;height:1235rpx;"></image>
+	<view class="check-pic-amount">
+		<text>{{currIndex}}</text>/<text>{{total}}</text>
+	</view>
+	<image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/delete-btn-icon.png" class="delete-btn" bindtap="deleteBtn"></image>
+</view>

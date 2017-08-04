@@ -1,0 +1,72 @@
+/* pages/teacher/honorBookList/honorBookList.wxss */
+.experience-top{
+	width: 100%;
+	height: 100rpx;
+	line-height: 100rpx;
+	text-align: center;
+	font-size: 30rpx;
+	color: #7eb229;
+	background-color: #fff;
+}
+.experience-top image{
+	width: 40rpx;
+	height: 40rpx;
+	margin-right: 8rpx;
+	vertical-align: middle;
+}
+.show-save-btn{
+	width: 700rpx;
+	height: 95rpx;
+	line-height: 95rpx;
+	margin: 50rpx auto 30rpx;
+	text-align: center;
+	font-size: 36rpx;
+	color: #fff;
+	background-color: #7eb229;
+	border-radius: 10rpx;
+}
+.honor-pic{
+	margin-top: 20rpx;
+	padding: 26rpx 26rpx 0;
+	background-color: #fff;
+	font-size: 30rpx;
+	color: #6f6f6f;
+
+}
+.image-plus{
+	width: 135rpx;
+	height: 135rpx;
+}
+.honor-pic-box{
+	padding: 26rpx 0;
+	margin-top: 26rpx;
+	border-top: 2rpx solid #f5f5f5;
+}
+.delete-btn{
+	padding: 0 26rpx;
+	display: flex;
+	justify-content: flex-end;
+}
+.delete-btn button{
+	padding: 0;
+	margin: 20rpx 0;
+	width: 135rpx;
+	height: 66rpx;
+	line-height: 66rpx;
+	font-size: 36rpx;
+	color: #6f6f6f;
+	background: #fff;
+	border: 2rpx solid #a0a0a0;
+}
+.zs-pic{
+	display: block;
+	margin: 0 auto;
+	width: 375rpx;
+	height: 267rpx;
+
+}
+.images-image{
+  margin:20rpx auto;
+  display: flex;
+  justify-content: center;
+}
