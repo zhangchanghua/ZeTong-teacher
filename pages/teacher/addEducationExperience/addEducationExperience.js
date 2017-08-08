@@ -1,5 +1,6 @@
 // pages/teacher/addEducationExperience/addEducationExperience.js
 var common = require('../../../utils/publicFn.js');
+var Api = require('../../../utils/api.js');
 Page({
   data: {
     school: '',
@@ -40,51 +41,40 @@ Page({
     if(this.data.pro == ''){
       common.showTip('请填写专业');return ;
     }
-
     var tid = wx.getStorageSync('userName');
     var page = this;
-    wx.request({
-      url: 'https://zetongteacher.zetongedu.com/teachr/teacher/addEducation/teacherId/' + tid,
-      data: {
-        'school': page.data.school,
-        'edu': page.data.edu,
-        'pro': page.data.pro
-      },
-      method: 'POST',
-      header: {
-        "Content-Type": "application/json"
-      },
-      success: function (res) {
-        //console.log(res.data)
-        if (res.data.errcode == 0) {
-          wx.showToast({ title: '添加成功', icon: 'loading', duration: 1000 })
-        }else{
-          common.showTip(res.data.errmsg);return ;
-        }
-        setTimeout(function () {
-          //var edu1 = page.data.edu,
-            //pro1 = page.data.pro;
-          var pages = getCurrentPages();
-          var currPage = pages[pages.length - 1];//当前页面
-          var prevPage = pages[pages.length - 3];  //上两个页面
-          //console.log(page.data.edus)
-          page.data.edus.push({school: page.data.school, major: page.data.pro, pro: page.data.edu})
-          console.log(page.data.edus)
-          prevPage.setData({
-            education: page.data.edus
-          })
-          /*wx.redirectTo({url:'../../../pages/teacher/applyCertificate/applyCertificate'});*/
-          wx.navigateBack({
-            delta: 2
-          })
-        }, 1000)
-      },
-      fail: function (res) {
-        common.showTip('添加失败');return ;
-      },
-      complete: function (res) {
-        // complete
+    var url = Api.Url.teacher_addEducation
+    var params={
+      teacherId: tid,
+      school: page.data.school,
+      edu: page.data.edu,
+      pro: page.data.pro
+    }
+    Api.request(url,params,function(data){
+      if (res.data.errcode == 0) {
+        wx.showToast({ title: '添加成功', icon: 'loading', duration: 1000 })
+      } else {
+        common.showTip(res.data.errmsg); return;
       }
+      setTimeout(function () {
+        //var edu1 = page.data.edu,
+        //pro1 = page.data.pro;
+        var pages = getCurrentPages();
+        var currPage = pages[pages.length - 1];//当前页面
+        var prevPage = pages[pages.length - 3];  //上两个页面
+        //console.log(page.data.edus)
+        page.data.edus.push({ school: page.data.school, major: page.data.pro, pro: page.data.edu })
+        console.log(page.data.edus)
+        prevPage.setData({
+          education: page.data.edus
+        })
+        /*wx.redirectTo({url:'../../../pages/teacher/applyCertificate/applyCertificate'});*/
+        wx.navigateBack({
+          delta: 2
+        })
+      }, 1000)
+    },function(e){
+      common.showTip('添加失败')
     })
   }
 })

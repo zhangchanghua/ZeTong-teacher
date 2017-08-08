@@ -1,8 +1,9 @@
 var fn = require("../../../utils/util.js");
+var Api = require('../../../utils/api.js');
 // pages/teacher/writeDaily/writeDaily.js
 var that;
-var lens = [[],[]];
-var homeworks=[];
+var lens = [[], []];
+var homeworks = [];
 var arrsd = [
   {
     xiguan: '行为习惯',
@@ -204,21 +205,21 @@ Page({
   data: {
     arrs: arrsd,
     homeworkArr: homeworkArr,
-    homeworkyuwen:'',
-    homeworkmath:'',
-    homeworkenglish:'',
-    
-    ids:'',
-    kinds:'',
-    dateText:'2017-05',
+    homeworkyuwen: '',
+    homeworkmath: '',
+    homeworkenglish: '',
+
+    ids: '',
+    kinds: '',
+    dateText: '2017-05',
     des: ''
   },
-  onLoad:function(options){
+  onLoad: function (options) {
     console.log(options)
     this.setData({
-      ids: options.ids, 
+      ids: options.ids,
       kinds: options.kinds,
-      dateText:fn.getTime(),
+      dateText: fn.getTime(),
       arrs: arrsd
     })
   },
@@ -244,56 +245,39 @@ Page({
     lens[allindex][arids] = ids;
     console.log(lens);
   },
-  getHomework: function(e){
-    homeworks[e.currentTarget.id] = e.detail.value; 
+  getHomework: function (e) {
+    homeworks[e.currentTarget.id] = e.detail.value;
     console.log(homeworks)
   },
-  bindTextAreaBlur: function(e){
-    this.setData({des:e.detail.value})
+  bindTextAreaBlur: function (e) {
+    this.setData({ des: e.detail.value })
   },
-  subMonthReport:function(){
+  subMonthReport: function () {
     //console.log(homeworks)
     var page = this;
-    wx.request({
-      url: 'https://zetongteacher.zetongedu.com/teachr/teacher/monthReport',
-      data: {
-        teacherId: wx.getStorageSync('userName'),
-        kids: page.data.ids, 
-        kinds: page.data.kinds,
-        arrs: lens,
-        homeworkyuwen:homeworks[0],
-        homeworkmath:homeworks[1],
-        homeworkenglish:homeworks[2],
-        des:page.data.des
-      },
-      method: 'POST',
-      header: {'content-type': 'application/json'},
-      success: function(res){
-        console.log(res)
-        if(res.data.errcode==0){
-          wx.showToast({
-              title: res.data.errmsg,
-              icon: 'success',
-              duration: 1500
+    var url = Api.Url.teacher_monthReport
+    var params = {
+      teacherId: wx.getStorageSync('userName'),
+      kids: page.data.ids,
+      kinds: page.data.kinds,
+      arrs: lens,
+      homeworkyuwen: homeworks[0],
+      homeworkmath: homeworks[1],
+      homeworkenglish: homeworks[2],
+      des: page.data.des
+    }
+    Api.request(url, params, function (data) {
+      if (data.errcode == 0) {
+        wx.showToast({
+          title: data.errmsg,
+          icon: 'success',
+          duration: 1500
+        })
+        setTimeout(function () {
+          wx.switchTab({
+            url: '../index/index'
           })
-          setTimeout(function(){
-            wx.switchTab({
-              url: '../index/index'            
-            })            
-          },1000)
-        }else{
-          wx.showToast({
-              title: res.data.errmsg,
-              icon: 'success',
-              duration: 2000
-           })
-        }
-      },
-      fail: function(res) {
-        console.log('failed!')
-      },
-      complete: function(res) {
-        // complete
+        }, 1000)
       }
     })
   }

@@ -1,4 +1,5 @@
 // pages/teacher/teacherFile/teacherFile.js
+var Api = require('../../../utils/api.js');
 var app = getApp(),
   nation = require('../../../utils/publicFn.js');
 var arrsd = [
@@ -54,37 +55,30 @@ Page({
     var tid = wx.getStorageSync('userName');
     console.log('tid=' + tid);
     var page = this;
-    wx.request({
-      url: 'https://zetongteacher.zetongedu.com/teachr/teacher/userInfo/teacherId/' + tid,
-      method: 'GET',
-      header: { 'content-type': 'application/json' },
-      success: function (res) {
-        arrsd[0].bodys[0].have = res.data[0].average / 20;
-        console.log(res.data[0])
-        page.setData({
-          headImg: res.data[0].headImg,
-          name: res.data[0].name,
-          average: res.data[0].average,
-          linkWechat: res.data[0].linkWechat,
-          linkqq: res.data[0].linkqq,
-          phone: res.data[0].phone,
-          education: res.data[0].education,
-          introduction: res.data[0].introduction,
-          idea: res.data[0].idea,
-          images: res.data[0].images,
-          certificate: res.data[0].certificate,
-          hobby: res.data[0].hobby,
-          course: res.data[0].course,
-          bg_pic: res.data[0].BgImg 
+    var url = Api.Url.teacher_userInfo
+    var params={
+      teacherId: tid
+    }
+    Api.request(url,params,function(data){
+      arrsd[0].bodys[0].have = data[0].average / 20;
+      console.log(data[0])
+      page.setData({
+        headImg: data[0].headImg,
+        name: data[0].name,
+        average: data[0].average,
+        linkWechat: data[0].linkWechat,
+        linkqq: data[0].linkqq,
+        phone: data[0].phone,
+        education: data[0].education,
+        introduction: data[0].introduction,
+        idea: data[0].idea,
+        images: data[0].images,
+        certificate: data[0].certificate,
+        hobby: data[0].hobby,
+        course: data[0].course,
+        bg_pic: data[0].BgImg
 
-        })
-      },
-      fail: function (res) {
-        // fail
-      },
-      complete: function (res) {
-        // complete
-      }
+      })
     })
 
     var alllen = arrsd.length;
@@ -136,7 +130,7 @@ Page({
       content: '更换相册封面',
       showCancel: true,
       success: function (res) {
-        if (res.confirm) {
+        if (confirm) {
           console.log('用户点击确定')
           // 这里是换图片
           
@@ -146,7 +140,7 @@ Page({
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
               // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-              var tempFilePaths = res.tempFilePaths;
+              var tempFilePaths = tempFilePaths;
               //console.log(tempFilePaths);
               upload(that,tempFilePaths);
             }
@@ -174,8 +168,8 @@ function upload(page, path) {
       },
       success: function (res) {
         console.log(res);
-        console.log(res.statusCode)
-        if (res.statusCode != 200) {
+        console.log(statusCode)
+        if (statusCode != 200) {
           wx.showModal({
             title: '提示',
             content: '上传失败A',
@@ -183,7 +177,7 @@ function upload(page, path) {
           })
           return;
         }
-        var data = JSON.parse(res.data);
+        var data = JSON.parse(data);
         console.log(data.errcode);
         if (data.errcode == 0) {
           page.setData({  //上传成功修改显示服务器头像路径

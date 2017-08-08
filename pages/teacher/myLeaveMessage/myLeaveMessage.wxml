@@ -13,7 +13,7 @@
 </view>
 </view>
 <view wx:else>
-<view class="hh_tips" >
+<view class="hh_tips" hidden>
     暂时没有数据~
 </view>
 </view>

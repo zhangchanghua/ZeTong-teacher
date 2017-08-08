@@ -1,4 +1,5 @@
 // pages/teacher/checkPhoto/checkPhoto.js
+var Api = require('../../../utils/api.js');
 var imageList = [];
 var currImg = '';
 var type='image';
@@ -61,29 +62,18 @@ Page({
   }
 })
 function delImg(tid, src,t) {
-  wx.request({
-    url: 'https://zetongteacher.zetongedu.com/teachr/teacher/deleteImg',
-    data: { teacherId: tid, src: src,kind:t },
-    method: 'POST',
-    header: { 'Content-type': 'application/json' },
-    success: function (res) {
-      console.log(res.data)
-      if (res.data.errcode == 0) {
-        wx.showToast({
-          icon: "loading",
-          title: "删除成功"
-        });
-        return true;
-      } else {
-        return false;
-      }
-    },
-    fail: function (res) {
-      console.log('false!')
-      return false;
-    },
-    complete: function (res) {
-      // complete
+  var url = Api.Url.teacher_deleteImg
+  var params={
+    teacherId: tid, 
+    src: src,
+     kind: t
+  }
+  Api.request(url,params,function(data){
+    if (data.errcode == 0) {
+      wx.showToast({
+        icon: "loading",
+        title: "删除成功"
+      });
     }
   })
 }

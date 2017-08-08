@@ -1,5 +1,6 @@
 // pages/teacher/myLeaveMessage/myLeaveMessage.js
 var fn = require('../../../utils/publicFn.js');
+var Api = require('../../../utils/api.js');
 Page({
   data: {
     /*messageData: [
@@ -18,28 +19,19 @@ Page({
     var page = this;
     var tid = wx.getStorageSync('userName');
     getMessage(page,tid);
-    setInterval(function () {
-      getMessage(page,tid)
-    }, 12000)
+    //setInterval(function () {
+    //  getMessage(page,tid)
+   // }, 12000)
   }
 
 })
 function getMessage(page, tid){
   //console.log(tid)
-  wx.request({
-    url: 'https://zetongteacher.zetongedu.com/teachr/teacher/getMessage/teacherId/' + tid,
-    method: 'GET',
-    header: { 'content-type': 'application/json' },
-    success: function (res) {
-      console.log(res.data);
-      page.setData({ messageData: res.data })
-    },
-    fail: function () {
-      // fail
-    },
-    complete: function () {
-      // complete
-    }
+  var url = Api.Url.teacher_getMessage
+  var params={
+    teacherId: tid
+  }
+  Api.request(url,params,function(data){
+    page.setData({ messageData: data })
   })
-
 }

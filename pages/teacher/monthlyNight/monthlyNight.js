@@ -1,4 +1,5 @@
 var fn = require("../../../utils/util.js");
+var Api = require('../../../utils/api.js');
 // pages/teacher/writeDaily/writeDaily.js
 var that;
 var lens = [[],[]];
@@ -268,46 +269,29 @@ Page({
   subMonthReport:function(){
     //console.log(homeworks)
     var page = this;
-    wx.request({
-      url: 'https://zetongteacher.zetongedu.com/teachr/teacher/monthReport',
-      data: {
-        teacherId: wx.getStorageSync('userName'),
-        kids: page.data.ids, 
-        kinds: page.data.kinds,
-        arrs: lens,
-        homeworkyuwen:homeworks[0],
-        homeworkmath:homeworks[1],
-        homeworkenglish:homeworks[2],
-        des:page.data.des
-      },
-      method: 'POST',
-      header: {'content-type': 'application/json'},
-      success: function(res){
-        console.log(res)
-        if(res.data.errcode==0){
-          wx.showToast({
-              title: res.data.errmsg,
-              icon: 'success',
-              duration: 1500
+    var url = Api.Url.teacher_monthReport
+    var params={
+      teacherId: wx.getStorageSync('userName'),
+      kids: page.data.ids,
+      kinds: page.data.kinds,
+      arrs: lens,
+      homeworkyuwen: homeworks[0],
+      homeworkmath: homeworks[1],
+      homeworkenglish: homeworks[2],
+      des: page.data.des
+    }
+    Api.request(url,params,function(data){
+      if (data.errcode == 0) {
+        wx.showToast({
+          title: data.errmsg,
+          icon: 'success',
+          duration: 1500
+        })
+        setTimeout(function () {
+          wx.switchTab({
+            url: '../index/index'
           })
-          setTimeout(function(){
-            wx.switchTab({
-              url: '../index/index'            
-            })            
-          },1000)
-        }else{
-          wx.showToast({
-              title: res.data.errmsg,
-              icon: 'success',
-              duration: 2000
-           })
-        }
-      },
-      fail: function(res) {
-        console.log('failed!')
-      },
-      complete: function(res) {
-        // complete
+        }, 1000)
       }
     })
   }

@@ -1,4 +1,5 @@
 var fn = require('../../utils/md5.js');
+var Api = require('../../utils/api.js');
 Page({
   data: {
     authTips: "发送验证码",
@@ -16,49 +17,36 @@ Page({
   linkToIndex: function () {
     wx.showToast({ title: '登录中', icon: 'loading', duration: 1000 });
     //var that = this;
-    wx.request({
-      url: 'https://zetongteacher.zetongedu.com/teachr/login/login?phone=' + this.data.inputContent + '&code=' + this.data.inputCode+'&openid='+this.data.openid,
-      method: 'POST',
-      data: {userinfo: this.data.userinfo},
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success: function (res) {
-        wx.hideToast();
-        if (res.data.errcode == 0) {
-          //success login
-          console.log(res.data);
-          try {
-            wx.setStorageSync('userName', res.data.userName)
-          } catch (e) {
-            console.log(e)
-          }
-          wx.switchTab({
-            url: '../teacher/index/index',
-            success: function (res) {
-              // success
-            },
-            fail: function () {
-              // fail
-            },
-            complete: function () {
-              //
-            }
-          })
-        } else {
-          wx.showToast({
-            title: res.data.errmsg,
-            //content: res.data.errmsg,
-            duration: 2000
-          });
-          return false;
+    var url = Api.Url.login_login
+    var params = {
+      phone: this.data.inputContent,
+      code: this.data.inputCode,
+      openid: this.data.openid,
+      userinfo: this.data.userinfo
+    }
+    Api.request(url, paras, function (data) {
+      if (data.errcode == 0) {
+        //success login
+        console.log(data);
+        try {
+          wx.setStorageSync('userName', data.userName)
+        } catch (e) {
+          console.log(e)
         }
-      },
-      fail: function () {
-        return false;
+        wx.switchTab({
+          url: '../teacher/index/index',
+          success: function (res) {
+            // success
+          },
+          fail: function () {
+            // fail
+          },
+          complete: function () {
+            //
+          }
+        })
       }
     })
-
   },
   getAuth: function () {
     var that = this;
@@ -90,39 +78,18 @@ Page({
           });
         }
       }, 1000);
-      wx.request({
-        url: 'https://zetongteacher.zetongedu.com/teachr/login/getVerifyCode?phone=' + that.data.inputContent+'&state='+fn.md5(that.data.inputContent+'dtjy'),
-        method: 'GET',
-        header: {
-          'Content-Type': 'application/json'
-        },
-        success: function (res) {
-          console.log(res.data);
-          if (res.data.errcode == 0) {
-            wx.showToast({
-              title: '发送成功',
-              icon: 'success',
-              duration: 2000
-            })
-          } else { //发送失败
-            console.log(res.data.errmsg);
-            wx.showToast({
-              title: res.data.errmsg,
-              icon: 'success',
-              duration: 2000
-            })
-          }
-        },
-        fail: function (e) {
-          console.log('failed!');
-          console.log(e)
-        },
-        complete: function (res) {
-          if (res == null || res.data == null) {
-            console.error('网络请求失败');
-            return;
-          }
-
+      var url = Api.Url.login_getVerifyCode
+      var params = {
+        phone: that.data.inputContent,
+        state: fn.md5(that.data.inputContent + 'dtjy')
+      }
+      Api.request(url, params, function (data) {
+        if (data.errcode == 0) {
+          wx.showToast({
+            title: '发送成功',
+            icon: 'success',
+            duration: 2000
+          })
         }
       })
     }
@@ -145,45 +112,31 @@ Page({
     if (this.data.openid) {
       wx.showToast({ title: '登录中', icon: 'loading' });
       var that = this;
-      wx.request({
-        url: 'https://zetongteacher.zetongedu.com/teachr/login/wxlogin?session_key=' + that.data.session_key + '&openid=' + that.data.openid + '&name=' + that.data.userName,
-        method: 'POST',
-        data: { userinfo: that.data.userinfo },
-        header: {
-          'Content-Type': 'application/json'
-        },
-        success: function (res) {
-          console.log(res)
-          wx.hideToast();
-          if (res.data.errcode == 0) {
-            try {
-              wx.setStorageSync('userName', res.data.userName)
-            } catch (e) {
-              console.log(e)
-            }
-            wx.switchTab({
-              url: '../teacher/index/index',
-              success: function (res) {
-                // success
-              },
-              fail: function () {
-                // fail
-              },
-              complete: function () {
-                //
-              }
-            })
-          } else {
-            wx.showToast({
-              title: res.data.errmsg,
-              //content: res.data.errmsg,
-              duration: 2000
-            });
-            return false;
+      var url = Api.Url.login_wxlogin
+      var params = {
+        session_key: that.data.session_key,
+        openid: that.data.openid,
+        name: that.data.userName
+      }
+      Api.request(url, params, function (data) {
+        if (data.errcode == 0) {
+          try {
+            wx.setStorageSync('userName', data.userName)
+          } catch (e) {
+            console.log(e)
           }
-        },
-        fail: function () {
-          return false;
+          wx.switchTab({
+            url: '../teacher/index/index',
+            success: function (res) {
+              // success
+            },
+            fail: function () {
+              // fail
+            },
+            complete: function () {
+              //
+            }
+          })
         }
       })
     } else {
@@ -209,22 +162,20 @@ Page({
     wx.login({
       success: function (res) {
         if (res.code) {
-          wx.request({
-            url: 'https://api.weixin.qq.com/sns/jscode2session?appid=wx04d23b275bbd5e5d&secret=db5f77571978527d1cc0c41d2e5eabc0&js_code=' + res.code + '&grant_type=authorization_code',
-            header: { 'content-type': 'application/json' },
-            success: function (res) {
-              console.log('openid='+res.data.openid)
-              that.setData({
-                openid: res.data.openid,
-                session_key: res.data.session_key
-              })
-            },
-            fail: function (res) {
-              // fail
-            },
-            complete: function (res) {
-              // complete
-            }
+          var url = 'https://api.weixin.qq.com/sns/jscode2session';
+          var params = {
+            appid: 'wx04d23b275bbd5e5d',
+            secret: 'db5f77571978527d1cc0c41d2e5eabc0',
+            js_code: res.code,
+            grant_type: 'authorization_code'
+          }
+          console.error('擦')
+          Api.request(url, params, function (data) {
+            console.error('呵呵哒')
+            that.setData({
+              openid: res.data.openid,
+              session_key: res.data.session_key
+            })
           })
         } else {
           console.log('获取用户登录态失败！' + res.errMsg)

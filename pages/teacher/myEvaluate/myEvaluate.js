@@ -1,4 +1,5 @@
 // pages/teacher/myEvaluate/myEvaluate.js
+var Api = require('../../../utils/api.js');
 var star0 = "https://zetongteacher.zetongedu.com/static/teacher/Images/star-active.png";
 var star1 = "https://zetongteacher.zetongedu.com/static/teacher/Images/star.png";
 
@@ -111,32 +112,25 @@ Page({
 // ],
 // "generalCommentTxt2":"陈老师热情，很耐心细致，相当nice。"
 function getAssess(page, tid) {
-  wx.request({
-    url: 'https://zetongteacher.zetongedu.com/teachr/teacher/showassess/teacherId/' + tid,
-    header: { 'content-type': 'application/json' },
-    success: function (res) {
-      console.log(res.data);
-      if (res.data.length != 0) {
-        page.setData({ data: res.data });
-        page.setData({
-          loadingHidden: true
-        });
-        page.update();
-        return true;
-      } else {
-        page.setData({
-          loadingHidden: true,
-          empty: true
-        });
-        page.update();
-        return false;
-      }
-    },
-    fail: function (res) {
-      console.log('failed'); return false;
-    },
-    complete: function (res) {
-      // complete
+  var url = Api.Url.teacher_showassess
+  var params={
+    teacherId: tid
+  }
+  Api.request(url,params,function(data){
+    if (data.length != 0) {
+      page.setData({ data: data });
+      page.setData({
+        loadingHidden: true
+      });
+      page.update();
+      return true;
+    } else {
+      page.setData({
+        loadingHidden: true,
+        empty: true
+      });
+      page.update();
+      return false;
     }
   })
 

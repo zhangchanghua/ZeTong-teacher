@@ -1,5 +1,6 @@
 // pages/teacher/educationExperience/educationExperience.js
 var fn = require("../../../utils/publicFn.js");
+var Api = require('../../../utils/api.js');
 /*var bianjiData = [
   { text: "华南理工大学", iconUrl: "https://zetongteacher.zetongedu.com/static/teacher/Images/right-arr.png" },
   { text: "中山大学", iconUrl: "https://zetongteacher.zetongedu.com/static/teacher/Images/right-arr.png" },
@@ -59,57 +60,39 @@ Page({
       //编辑状态可以删除一条记录
       var n = e.target.dataset.ind;
       console.log(n);
-      wx.request({
-        url: 'https://zetongteacher.zetongedu.com/teachr/teacher/deleteEducation',
-        data: {
-          teacherId: wx.getStorageSync('userName'),
-          eduindex: n
-        },
-        method: 'POST',
-        header: { 'Content-type': "application/json" },
-        success: function (res) {
-          console.log(res.data)
-          if (res.data.errcode == 0) {
-            bianjiData.splice(n, 1);
-            overData.splice(n, 1);
-            console.log(bianjiData)
-            console.log(overData)
-            //-----------------------------------------
-            setTimeout(function () {
-              var pages = getCurrentPages();
-              var currPage = pages[pages.length - 1];//当前页面
-              var prevPage = pages[pages.length - 2]; //上一个
-              //console.log(page.data.edus)
-              
-              prevPage.setData({
-                education: res.data.errData
-              })
-              
-            }, 0)
-            //-----------------------------------------
-            that.data.status.splice(n, 1)
-            that.setData({
-              status: that.data.status
-            });
-          }
-        },
-        fail: function (res) {
-          // fail
-        },
-        complete: function (res) {
-          // complete
+      var url = Api.Url.teacher_deleteEducation
+      var params={
+        teacherId: wx.getStorageSync('userName'),
+        eduindex: n
+      }
+      Api.request(url,params,function(data){
+        if (data.errcode == 0) {
+          bianjiData.splice(n, 1);
+          overData.splice(n, 1);
+          console.log(bianjiData)
+          console.log(overData)
+          //-----------------------------------------
+          setTimeout(function () {
+            var pages = getCurrentPages();
+            var currPage = pages[pages.length - 1];//当前页面
+            var prevPage = pages[pages.length - 2]; //上一个
+            //console.log(page.data.edus)
+
+            prevPage.setData({
+              education: res.data.errData
+            })
+
+          }, 0)
+          //-----------------------------------------
+          that.data.status.splice(n, 1)
+          that.setData({
+            status: that.data.status
+          });
         }
       })
-
-      //that.data.status.splice(n, 1)
-      //console.log(that.data.status)
-      //that.setData({
-      //  status: that.data.status
-      //});
     }
   },
   toAddEducation: function () {
-
     fn.na("../../../pages/teacher/addEducationExperience/addEducationExperience?edus=" + JSON.stringify(bianjiData));
   }
 

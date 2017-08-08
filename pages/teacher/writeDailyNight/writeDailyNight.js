@@ -1,5 +1,6 @@
 var fn = require("../../../utils/util.js");
 var comm = require('../../../utils/publicFn.js');
+var Api = require('../../../utils/api.js');
 var that;
 var lens = [[],[]];
 var arrsd = [
@@ -187,48 +188,30 @@ Page({
     var page = this;
     if(lens[0].length<2){comm.showTip('行为习惯未填写完整');return ;}
     if(lens[1].length<3){comm.showTip('学习习惯未填写完整');return ;}
+    var url;
     if(page.data.ids.length > 1){
-      var url = 'https://zetongteacher.zetongedu.com/teachr/teacher/dayReportBoth';
+      url = Api.Url.teacher_dayReportBoth;
     }else{
-      var url = 'https://zetongteacher.zetongedu.com/teachr/teacher/dayReportSingle';
+      url = Api.Url.teacher_dayReportSingle;
     }
-    wx.request({
-      url: url,
-      data: {
-        teacherId: wx.getStorageSync('userName'),
-        kids: page.data.ids, 
-        kinds: page.data.kinds,
-        arrs: lens        
-      },
-      method: 'POST',
-      header: {'content-type': 'application/json'},
-      success: function(res){
-        if(res.data.errcode==0){
-          console.log(res.data.repeat);
-          wx.showToast({
-              title: res.data.errmsg,
-              icon: 'success',
-              duration: 1500
+    var params={
+      teacherId: wx.getStorageSync('userName'),
+      kids: page.data.ids,
+      kinds: page.data.kinds,
+      arrs: lens 
+    }
+    Api.request(url,params,function(data){
+      if (data.errcode == 0) {
+        wx.showToast({
+          title: data.errmsg,
+          icon: 'success',
+          duration: 1500
+        })
+        setTimeout(function () {
+          wx.switchTab({
+            url: '../index/index'
           })
-          setTimeout(function(){
-            wx.switchTab({
-              url: '../index/index'            
-            })            
-          },1000)
-          
-        }else{
-          wx.showToast({
-              title: res.data.errmsg,
-              icon: 'success',
-              duration: 2000
-           })
-        }
-      },
-      fail: function(res) {
-        console.log('failed!')
-      },
-      complete: function(res) {
-        // complete
+        }, 1000)
       }
     })
   }

@@ -1,5 +1,6 @@
 // pages/teacher/applyCertificate/applyCertificate.js
 var fn = require('../../../utils/publicFn.js');
+var Api = require('../../../utils/api.js');
 var honorPic = "https://zetongteacher.zetongedu.com/static/teacher/Images/honor-pic.png";
 var showPic = "https://zetongteacher.zetongedu.com/static/teacher/Images/pic1.png";
 var name, sex, address, introduce, eduIdea, hobby, shopId;
@@ -42,8 +43,8 @@ Page({
     provinceIndex: 0,
     cityIndex: 0,
     selectIndex: 0,
-    defaultProvince:null,
-    defaultCity:null,
+    defaultProvince: null,
+    defaultCity: null,
     teacherKinds: ["泽童教育", "非泽童教育"]
   },
   onLoad: function (e) {
@@ -57,128 +58,107 @@ Page({
       fn.re('../../../pages/teacher/mine/mine'); return;
     }
     // ---------------------注意这三个调用先后顺序-----
-    wx.request({
-      url: 'https://zetongteacher.zetongedu.com/teachr/teacher/getStores/teacherId/' + tid,
-      header: { 'content-type': 'application/json' },
-      success: function (res) {
-        console.log(res.data);
-        if (res.data.errcode == 0) {
-          if (res.data.stores.length != 0) {
-            page.setData({ objectstores: res.data.objectstores, stores: res.data.stores })
-          }
-          shopId = getshopId(page, page.data.objectstores);
-          wx.request({
-      url: 'https://zetongteacher.zetongedu.com/teachr/teacher/courses/teacherId/' + tid,
-      header: { 'content-type': 'application/json' },
-      success: function (res) {
-        console.log(res.data);
-        if (res.data.errcode == 0) {
-          subject = res.data.courses;
-          page.setData({ 'subjects': subject })
-          wx.request({
-            url: 'https://zetongteacher.zetongedu.com/teachr/teacher/userInfo/teacherId/' + tid,
-            header: { 'content-type': 'application/json' },
-            success: function (res) {
-              console.log(res.data[0]);
-              if (res.data[0]) {
-                educa = res.data[0].education;
+    var url = Api.Url.teacher_getStores
+    var params = {
+      teacherId: tid,
+    }
+    Api.request(url, params, function (data) {
+
+        if (data.stolength != 0) {
+          page.setData({
+            objectstores: data.objectstores,
+            stores: data.stores
+          })
+        }
+        shopId = getshopId(page, page.data.objectstores);
+        var url1 = Api.Url.teacher_courses
+        var params1 = {
+          teacherId: tid,
+        }
+        Api.request(url1, params1, function (data) {
+    
+            subject = data.courses;
+            page.setData({ 'subjects': subject })
+            var url2 = Api.Url.teacher_userInfo
+            var params2 = {
+              teacherId: tid,
+            }
+            Api.request(url2, params2, function (data) {
+              if (data[0]) {
+                educa = data[0].education;
                 //获取男女
                 for (var i = 0; i < page.data.items.length; i++) {
-                  if (page.data.items[i].value == res.data[0].sex) {
+                  if (page.data.items[i].value == data[0].sex) {
                     page.data.items[i].checked = true;
                   }
                 }
                 //获取辅导课程
                 for (var i = 0; i < subject.length; i++) {
-                  for (var j = 0; j < res.data[0].course.length; j++) {
-                    if (subject[i].text == res.data[0].course[j]) {
+                  for (var j = 0; j < data[0].course.length; j++) {
+                    if (subject[i].text == data[0].course[j]) {
                       subject[i].isSelected = true;
                     }
                   }
                 }
                 console.log(subject)
-                if (res.data[0].shopId) {
-                  
-                    for (var i = 0; i < page.data.objectstores.length; i++) {
-                      if (page.data.objectstores[i].id == res.data[0].shopId) {
-                        for (var j = 0; j < page.data.stores.length; j++) {
-                          if (page.data.stores[j] == page.data.objectstores[i].shopname) {
-                            page.setData({ storeIndex: j })
-                          }
+                if (data[0].shopId) {
+                  for (var i = 0; i < page.data.objectstolength; i++) {
+                    if (page.data.objectstores[i].id == data[0].shopId) {
+                      for (var j = 0; j < page.data.stolength; j++) {
+                        if (page.data.stores[j] == page.data.objectstores[i].shopname) {
+                          page.setData({ storeIndex: j })
                         }
                       }
                     }
-                  
+                  }
                 }
-                var add = res.data[0].address.split(',');
+                var add = data[0].address.split(',');
                 //console.log(add)
                 page.setData({
-                  oldname: res.data[0].name,
+                  oldname: data[0].name,
                   items: page.data.items,
-                  defaultProvince:add[0],
-                  defaultCity:add[1],
-                  headimg: res.data[0].headImg,
-                  introduce: res.data[0].introduction,
-                  idea: res.data[0].idea,
+                  defaultProvince: add[0],
+                  defaultCity: add[1],
+                  headimg: data[0].headImg,
+                  introduce: data[0].introduction,
+                  idea: data[0].idea,
                   subjects: subject,
-                  linkWechat: res.data[0].linkWechat,
-                  linkqq: res.data[0].linkqq,
-                  hobby: res.data[0].hobby,
-                  phone: res.data[0].phone,
+                  linkWechat: data[0].linkWechat,
+                  linkqq: data[0].linkqq,
+                  hobby: data[0].hobby,
+                  phone: data[0].phone,
                   education: educa
                 })
-                if(res.data[0].images[0]){
-                  for(var i=0;i<res.data[0].images.length;i++){
-                    page.data.showPicUrl.push(res.data[0].images[i].src)
+                if (data[0].images[0]) {
+                  for (var i = 0; i < data[0].images.length; i++) {
+                    page.data.showPicUrl.push(data[0].images[i].src)
                   }
-                  page.setData({showPicUrl:page.data.showPicUrl})
+                  page.setData({ showPicUrl: page.data.showPicUrl })
                 }
-                if(res.data[0].certificate[0]){
-                  for(var i=0;i<res.data[0].certificate.length;i++){
-                    page.data.honorPicUrl.push(res.data[0].certificate[i].src)
+                if (data[0].certificate[0]) {
+                  for (var i = 0; i < data[0].certificate.length; i++) {
+                    page.data.honorPicUrl.push(data[0].certificate[i].src)
                   }
-                  page.setData({honorPicUrl:page.data.honorPicUrl})
+                  page.setData({ honorPicUrl: page.data.honorPicUrl })
                 }
                 page.update()
                 //为全局变量扶植
-                name = res.data[0].name;
-                sex = res.data[0].sex == '男' ? 'woman' : 'man';
-                address = res.data[0].address;
-                introduce = res.data[0].introduction;
-                eduIdea = res.data[0].idea;
-                hobby = res.data[0].hobby;
-                contactwx = res.data[0].linkWechat;
-                contactqq = res.data[0].linkqq;
-                contactmobile = res.data[0].phone;
-                shopId = res.data[0].shopId;
-
+                name = data[0].name;
+                sex = data[0].sex == '男' ? 'woman' : 'man';
+                address = data[0].address;
+                introduce = data[0].introduction;
+                eduIdea = data[0].idea;
+                hobby = data[0].hobby;
+                contactwx = data[0].linkWechat;
+                contactqq = data[0].linkqq;
+                contactmobile = data[0].phone;
+                shopId = data[0].shopId;
               }
-            },
-            fail: function (res) {
-              // fail
-            },
-            complete: function (res) {
-              // complete
-            }
-          })
-        }
-      },
-      fail: function (res) {
-        // fail
-      },
-      complete: function (res) {
-        // complete
-      }
+            })
+          
+        })
+      
     })
-        }
-      },
-      fail: function (res) {
-        // fail
-      },
-      complete: function (res) {
-      }
-    })
-    
 
   },
   bindPickerChange: function (e) {//选择城市OR选择门店
@@ -187,13 +167,13 @@ Page({
     console.log('picker发送选择改变，携带值为', e.detail.value)
     switch (e.target.dataset.name) {
       case "provinces":
-        that.setData({defaultProvince:null,defaultCity:null})
+        that.setData({ defaultProvince: null, defaultCity: null })
         console.log('province: ' + e.detail.value);
-        getCityByProvince(tid,e.detail.value,that)
-        
+        getCityByProvince(tid, e.detail.value, that)
+
         break;
       case "citys":
-        that.setData({defaultCity:null})
+        that.setData({ defaultCity: null })
         console.log('citys: ' + e.detail.value);
         that.setData({
           cityIndex: e.detail.value
@@ -213,10 +193,10 @@ Page({
     wx.showActionSheet({
       itemList: ['从相册中选择', '拍照'],
       success: function(res) {
-        console.log(res.tapIndex)
+        console.log(tapIndex)
       },
       fail: function(res) {
-        console.log(res.errMsg)
+        console.log(errMsg)
       }
     })
   },*/
@@ -224,13 +204,13 @@ Page({
     fn.na("../../../pages/teacher/educationExperience/educationExperience?education=" + JSON.stringify(this.data.education));
   },
   toShowStyle: function () {
-    fn.na("../../../pages/teacher/styleShow/styleShow?showPicUrl="+JSON.stringify(this.data.showPicUrl));
+    fn.na("../../../pages/teacher/styleShow/styleShow?showPicUrl=" + JSON.stringify(this.data.showPicUrl));
   },
   toCoachProject: function () {
     fn.na("../../../pages/teacher/coachProject/coachProject?courses=" + JSON.stringify(subject));
   },
   tohonorBook: function () {
-    fn.na("../../../pages/teacher/honorBook/honorBook?honorPic="+JSON.stringify(this.data.honorPicUrl));
+    fn.na("../../../pages/teacher/honorBook/honorBook?honorPic=" + JSON.stringify(this.data.honorPicUrl));
   },
   getname: function (e) {
     //console.log(e.detail.value);
@@ -250,7 +230,7 @@ Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        var tempFilePaths = res.tempFilePaths;
+        var tempFilePaths = tempFilePaths;
         upload(that, tempFilePaths);
       }
     })
@@ -331,53 +311,36 @@ Page({
     if (!wx.getStorageSync('userName')) {
       fn.showTip('请先登录'); return;
     }
-    wx.request({
-      url: 'https://zetongteacher.zetongedu.com/teachr/teacher/requestAuth',
-      data: {
-        teacherId: wx.getStorageSync('userName'),
-        name: name,
-        sex: sex,
-        address: address,
-        headImg: page.data.headimg,//若是本地路径代表上传失败
-        introduction: introduce,
-        idea: eduIdea,
-        hobby: hobby,
-        //course: course,
-        linkWechat: contactwx,
-        linkqq: contactqq,
-        linkMobile: contactmobile,
-        belongsTo: isbelongs,
-        //storeName: page.data.stores[storeIndex]
-        shopId: shopId
-      },
-      method: 'POST',
-      header: { 'content-type': 'application/json' },
-      success: function (res) {
+    var url = Api.Url.teacher_requestAuth
+    var params = {
+      teacherId: wx.getStorageSync('userName'),
+      name: name,
+      sex: sex,
+      address: address,
+      headImg: page.data.headimg,//若是本地路径代表上传失败
+      introduction: introduce,
+      idea: eduIdea,
+      hobby: hobby,
+      //course: course,
+      linkWechat: contactwx,
+      linkqq: contactqq,
+      linkMobile: contactmobile,
+      belongsTo: isbelongs,
+      //storeName: page.data.stores[storeIndex]
+      shopId: shopId
+    }
+    Api.request(url, params, function (data) {
 
-        if (res.data.errcode == 0) {
-          wx.showToast({
-            icon: "loading",
-            title: "申请成功"
-          })
-          setTimeout(function () {
-            wx.switchTab({
-              url: '../mine/mine'
-            })
-            /*fn.re('../../../pages/teacher/teacherFile/teacherFile')*/
-          }, 1000)
-        } else {
-          wx.showToast({
-            icon: "loading",
-            title: res.data.errmsg
-          })
-        }
-      },
-      fail: function (res) {
-        // fail
-      },
-      complete: function (res) {
-        // complete
-      }
+      wx.showToast({
+        icon: "loading",
+        title: "申请成功"
+      })
+      setTimeout(function () {
+        wx.switchTab({
+          url: '../mine/mine'
+        })
+        /*fn.re('../../../pages/teacher/teacherFile/teacherFile')*/
+      }, 1000)
     })
   }
 })
@@ -398,8 +361,8 @@ function upload(page, path) {
       },
       success: function (res) {
         console.log(res);
-        console.log(res.statusCode)
-        if (res.statusCode != 200) {
+        console.log(statusCode)
+        if (statusCode != 200) {
           wx.showModal({
             title: '提示',
             content: '上传失败A',
@@ -407,7 +370,7 @@ function upload(page, path) {
           })
           return;
         }
-        var data = JSON.parse(res.data);
+        var data = JSON.parse(data);
         console.log(data.errcode);
         if (data.errcode == 0) {
           page.setData({  //上传成功修改显示服务器头像路径
@@ -440,31 +403,17 @@ function getshopId(page, objectstores) {
     }
   }
 }
-function getCityByProvince(tid,provinceId,that){
-  wx.request({
-    url: 'https://zetongteacher.zetongedu.com/teachr/teacher/getCity',
-    data: {'teacherId':tid,'provinceId':provinceId},
-    method: 'POST', 
-    header: {'Content-type':'application/json'}, 
-    success: function(res){
-      if(res.data.errcode==0){
-        that.setData({
-          citys: res.data.cities,
-          cityIndex:0,
-          provinceIndex: provinceId
-        });
-      }else{
-        wx.showToast({
-          icon: "success",
-          title: res.data.errmsg
-        })
-      }  
-    },
-    fail: function(res) {
-      // fail
-    },
-    complete: function(res) {
-      // complete
-    }
+function getCityByProvince(tid, provinceId, that) {
+  var url = Api.Url.teacher_getCity
+  var params={
+    teacherId: tid, 
+    provinceId: provinceId
+  }
+  Api.request(url,params,function(data){
+    that.setData({
+      citys: data.cities,
+      cityIndex: 0,
+      provinceIndex: provinceId
+    });
   })
 }

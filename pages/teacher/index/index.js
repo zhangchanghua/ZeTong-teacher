@@ -1,6 +1,7 @@
 // pages/teacher/index/index.js
 var fn = require('../../../utils/publicFn.js');
 var common = require('../../../utils/util.js');
+var Api = require('../../../utils/api.js');
 var kinds = 0;//0午托，1晚托，2全托;
 var bol = false;
 var newarr = [];//这里默认存放着选中的学生的id，没有为空
@@ -35,28 +36,21 @@ Page({
   onLoad: function (options) {
     var page = this;
     var tid = wx.getStorageSync('userName');
-    //console.log('tid: '+tid);
-    wx.request({
-
-      url: 'https://zetongteacher.zetongedu.com/teachr/teacher/index/username/' + tid,
-      //method: 'GET',
-      header: { 'Content-Type': 'application/json' },
-      success: function (res) {
-        console.log(res.data);
-        days = res.data.students;
-        page.setData({
-          "daydata": days,
-          "dateText": common.getNowDate(),
-          "allAmount": res.data.allAmount,
-          "signAmount": res.data.signAmount
-        });
-        if (res.data.errcode) {
-          fn.showTip(res.data.errmsg)
-        }
-        //if (res.data.errcode == 2) {
-        //fn.showTip(res.data.errmsg)
-        //}
-
+    console.log('tid: '+tid);
+    var url = Api.Url.teacher_index
+    var params={
+      username: tid
+    }
+    Api.request(url,params,function(data){
+      days = data.students;
+      page.setData({
+        daydata: days,
+        dateText: common.getNowDate(),
+        allAmount: data.allAmount,
+        signAmount: data.signAmount
+      });
+      if (data.errcode) {
+        fn.showTip(data.errmsg)
       }
     })
 
@@ -70,28 +64,20 @@ Page({
       nav2Indes: ind
     });
     var tid = wx.getStorageSync('userName');
-    wx.request({
-
-      url: 'https://zetongteacher.zetongedu.com/teachr/teacher/index',
-      method: 'POST',
-      header: { 'Content-Type': 'application/json' },
-      data: {
-        username: tid,
-        kind: ind
-      },
-      success: function (res) {
-        console.log(res.data);
-        days = res.data.students;
-        page.setData({
-          "daydata": days,
-          "dateText": res.data.dateText,
-          "allAmount": res.data.allAmount,
-          "signAmount": res.data.signAmount
-        });
-
-      }
+    var url = Api.Url.teacher_index
+    var params = {
+      username: tid,
+      kind: ind
+    }
+    Api.request(url,params,function(data){
+      days = data.students;
+      page.setData({
+        "daydata": days,
+        "dateText": data.dateText,
+        "allAmount": data.allAmount,
+        "signAmount": data.signAmount
+      });
     })
-
   },
   today: function (e) {
     var that = this;
@@ -325,54 +311,34 @@ Page({
         success: function (res) {
           if (res.confirm) {
             console.log('用户点击确定')
-            wx.request({
-              url: 'https://zetongteacher.zetongedu.com/teachr/teacher/signed',
-              data: {
-                'teacherId': teacherId,
-                'type': sel1,//接回 OR 返校
-                'kind': kinds,//午托托OR晚托(0,1,2)
-                'kids': newarr
-              },
-              method: 'post',
-              header: { 'content-type': 'application/json' },
-              success: function (res) {
-                console.log(res.data);
-                if (res.data.errcode == 0) {
-                  console.log(res.data.repeat)
-                  if (res.data.repeat.length > 0) {
-                    for (var i = 0; i < res.data.repeat.length; i++) {
-                      wx.showToast({
-                        title: res.data.repeat[i] + ' 今天已签到',
-                        icon: 'success',
-                        duration: 800
-                      })
-                    }
-
-                  } else {
+            var url = Api.Url.teacher_signed
+            var params={
+              'teacherId': teacherId,
+              'type': sel1,//接回 OR 返校
+              'kind': kinds,//午托托OR晚托(0,1,2)
+              'kids': newarr
+            }
+            Api.request(url,params,function(data){
+              if (data.errcode == 0) {
+                console.log(data.repeat)
+                if (data.repeat.length > 0) {
+                  for (var i = 0; i < data.repeat.length; i++) {
                     wx.showToast({
-                      title: '签到成功',
+                      title: data.repeat[i] + ' 今天已签到',
                       icon: 'success',
-                      duration: 2000
+                      duration: 800
                     })
                   }
-
-                  that.setData({ "signAmount": res.data.signAmount })
-
                 } else {
                   wx.showToast({
-                    title: res.data.errmsg,
+                    title: '签到成功',
                     icon: 'success',
                     duration: 2000
                   })
                 }
-              },
-              fail: function (res) {
-
-              },
-              complete: function (res) {
-
+                that.setData({ "signAmount": data.signAmount })
               }
-            })
+            })           
           }
         }
       })

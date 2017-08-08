@@ -28,7 +28,7 @@
     <image src="http://dantong.oss-cn-shenzhen.aliyuncs.com/teacher/noIdetification-pic.png" class="not-identifi"></image>
   </view>
 
-  <!-- 教师未登录，未认证start -->
+  <!-- 教师未登录，未认证end -->
 
   <!--首页点到start-->
   <view class="index-clicked" wx:if="{{isStart}}">

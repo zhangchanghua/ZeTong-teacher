@@ -1,5 +1,6 @@
 // pages/teacher/mine/mine.js
 var common = require('../../../utils/publicFn.js');
+var Api = require('../../../utils/api.js');
 Page({
   data: {
     logined: false,
@@ -39,48 +40,38 @@ Page({
               });
             }
           })
-
-          wx.request({
-            url: 'https://zetongteacher.zetongedu.com/teachr/teacher/getCertified',
-            data: { 'username': tid },
-            method: 'POST',
-            // header: {}, // 设置请求的 header
-            success: function (res) {
-              console.log(res.data);
-              if (res.data.errcode == 1) {
-                common.showTip('待审核');
-                that.setData({
-                  //itemText: "我的档案",
-                  logined: true,
-                  //certified: true,
-                });
-              } else if(res.data.errcode == 2){
-                //common.showTip('审核通过');
-                that.setData({
-                  itemText: "我的档案",
-                  logined: true,
-                  certified: true,
-                  allowview:true
-                });
-              } else if(res.data.errcode == 3){
-                common.showTip('未审核通过');
-                that.setData({
-                  logined: true,                  
-                });
-              } else {
-                common.showTip('未审核');
-                that.setData({
-                  //itemText: "我的档案",
-                  logined: true,
-                  //certified: true,
-                });
-              }
-            },
-            fail: function () {
-              // fail
-            },
-            complete: function () {
-              // complete
+          var url = Api.Url.teacher_getCertified
+          var params = {
+            username: tid
+          }
+          Api.request(url, params, function (data) {
+            if (data.errcode == 1) {
+              common.showTip('待审核');
+              that.setData({
+                //itemText: "我的档案",
+                logined: true,
+                //certified: true,
+              });
+            } else if (data.errcode == 2) {
+              //common.showTip('审核通过');
+              that.setData({
+                itemText: "我的档案",
+                logined: true,
+                certified: true,
+                allowview: true
+              });
+            } else if (data.errcode == 3) {
+              common.showTip('未审核通过');
+              that.setData({
+                logined: true,
+              });
+            } else {
+              common.showTip('未审核');
+              that.setData({
+                //itemText: "我的档案",
+                logined: true,
+                //certified: true,
+              });
             }
           })
         } else {
@@ -90,7 +81,7 @@ Page({
     });
   },
   link1: function () {
-    
+
     if (this.data.certified && this.data.allowview) {
       //我的档案
       common.na("../../../pages/teacher/teacherFile/teacherFile");

@@ -1,4 +1,5 @@
 var fn = require("../../../utils/util.js");
+var Api = require('../../../utils/api.js');
 var that;
 var lens = [];
 var arrsd = [
@@ -91,16 +92,16 @@ var arrsd = [
 Page({
   data: {
     arrs: arrsd,
-    ids:'',
-    kinds:'',
-    dateText:'2017-05',
+    ids: '',
+    kinds: '',
+    dateText: '2017-05',
     des: '',
   },
-  onLoad:function(options){
+  onLoad: function (options) {
     this.setData({
-      ids: options.ids, 
+      ids: options.ids,
       kinds: options.kinds,
-      dateText:fn.getNowDate(false),
+      dateText: fn.getNowDate(false),
       arrs: arrsd
     })
   },
@@ -126,49 +127,34 @@ Page({
     lens[arids] = ids;
     console.log(lens);
   },
-  subReport:function(){
+  subReport: function () {
     var page = this;
     console.log(page.data.ids);
-    wx.request({
-      url: 'https://zetongteacher.zetongedu.com/teachr/teacher/monthReport',
-      data: {
-        teacherId: wx.getStorageSync('userName'),
-        kids: page.data.ids, 
-        kinds: page.data.kinds,
-        arrs: lens,
-        des: page.data.des        
-      },
-      method: 'POST',
-      header: {'content-type': 'application/json'},
-      success: function(res){
-        if(res.data.errcode==0){
-          wx.showToast({
-              title: res.data.errmsg,
-              icon: 'success',
-              duration: 1500
+    var url = Api.Url.teacher_monthReport
+    var params = {
+      teacherId: wx.getStorageSync('userName'),
+      kids: page.data.ids,
+      kinds: page.data.kinds,
+      arrs: lens,
+      des: page.data.des
+    }
+    Api.request(url, params, function (data) {
+      if (data.errcode == 0) {
+        wx.showToast({
+          title: data.errmsg,
+          icon: 'success',
+          duration: 1500
+        })
+        setTimeout(function () {
+          wx.switchTab({
+            url: '../index/index'
           })
-          setTimeout(function(){
-            wx.switchTab({
-              url: '../index/index'            
-            })            
-          },1000)
-        }else{
-          wx.showToast({
-              title: res.data.errmsg,
-              icon: 'success',
-              duration: 2000
-           })
-        }
-      },
-      fail: function(res) {
-        console.log('failed!')
-      },
-      complete: function(res) {
-        // complete
+        }, 1000)
       }
     })
+
   },
-  bindTextAreaBlur: function(e){
-    this.setData({des:e.detail.value})
+  bindTextAreaBlur: function (e) {
+    this.setData({ des: e.detail.value })
   }
 })

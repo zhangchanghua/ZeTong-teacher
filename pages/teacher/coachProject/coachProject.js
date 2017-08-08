@@ -1,4 +1,5 @@
 // pages/teacher/coachProject/coachProject.js
+var Api = require('../../../utils/api.js');
 var subject = [
   { id: 0, text: "钢琴", isSelected: false },
   { id: 1, text: "绘画", isSelected: false },
@@ -39,37 +40,25 @@ Page({
         tmp.push(page.data.subjects[i].text);
       }
     }
-    console.log(tmp);
-    wx.request({
-      url: 'https://zetongteacher.zetongedu.com/teachr/teacher/saveClass',
-      data: {
-        teacherId: wx.getStorageSync('userName'),
-        class: tmp
-      },
-      method: 'POST',
-      header: { 'content-type': 'application/json' },
-      success: function (res) {
-        console.log(res.data)
-        if (res.data.errcode == 0) {
-          wx.showToast({
-            title: '保存成功',
-            icon: 'loading'
-          });
-        }else{
-          wx.showToast({
-            title: res.data.errmsg,
-            icon: 'loading'
-          });
-          return ;
-        }
+    var url = Api.Url.teacher_saveClass
+    var params={
+      teacherId: wx.getStorageSync('userName'),
+      class: tmp
+    }
+    Api.request(url,params,function(data){
+      if (data.errcode == 0) {
+        wx.showToast({
+          title: '保存成功',
+          icon: 'loading'
+        });
         setTimeout(function () {
           var pages = getCurrentPages();
           var currPage = pages[pages.length - 1];//当前页面
           var prevPage = pages[pages.length - 2];  //上一个页面
-          for(var i=0;i<subject.length;i++){
-            for(var j =0;j<tmp.length;j++){
-              if(subject[i].text==tmp[j]){
-                subject[i].isSelected=true;
+          for (var i = 0; i < subject.length; i++) {
+            for (var j = 0; j < tmp.length; j++) {
+              if (subject[i].text == tmp[j]) {
+                subject[i].isSelected = true;
               }
             }
           }
@@ -80,12 +69,6 @@ Page({
             delta: 1
           })
         }, 1000)
-      },
-      fail: function (res) {
-        // fail
-      },
-      complete: function (res) {
-        // complete
       }
     })
   },
