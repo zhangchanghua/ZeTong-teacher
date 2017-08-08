@@ -114,7 +114,7 @@ Page({
       icon: 'success'
     })
     setTimeout(function () {
-      common.na("../../../pages/login/login");
+      common.re("../../../pages/login/login");
     }, 1000)
   }
 

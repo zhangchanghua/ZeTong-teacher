@@ -276,7 +276,6 @@ image{
   float: left;
 }
 
-/*辅导项目样式*/
 .fudao {
   display: flex;
 

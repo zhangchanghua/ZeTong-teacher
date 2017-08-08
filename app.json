@@ -1,12 +1,9 @@
 {
   "pages":[
-     
-    
-    "pages/teacher/index/index",  
     "pages/login/login",
+    "pages/teacher/index/index",  
     "pages/commom/commom",
 
-    
     "pages/teacher/mine/mine",    
     "pages/teacher/writeDailyNight/writeDailyNight",
     "pages/teacher/writeDailyNoon/writeDailyNoon",

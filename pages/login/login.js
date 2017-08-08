@@ -24,10 +24,9 @@ Page({
       openid: this.data.openid,
       userinfo: this.data.userinfo
     }
-    Api.request(url, paras, function (data) {
+    Api.request(url, params, function (data) {
       if (data.errcode == 0) {
         //success login
-        console.log(data);
         try {
           wx.setStorageSync('userName', data.userName)
         } catch (e) {
@@ -35,15 +34,6 @@ Page({
         }
         wx.switchTab({
           url: '../teacher/index/index',
-          success: function (res) {
-            // success
-          },
-          fail: function () {
-            // fail
-          },
-          complete: function () {
-            //
-          }
         })
       }
     })
@@ -126,16 +116,7 @@ Page({
             console.log(e)
           }
           wx.switchTab({
-            url: '../teacher/index/index',
-            success: function (res) {
-              // success
-            },
-            fail: function () {
-              // fail
-            },
-            complete: function () {
-              //
-            }
+            url: '../teacher/index/index'
           })
         }
       })
@@ -147,7 +128,7 @@ Page({
     var that = this;
     wx.getUserInfo({
       success: function (res2) {
-        console.log(res2);
+        //console.log(res2);
         //var encryptedData = encodeURIComponent(res2.encryptedData);//一定要把加密串转成URI编码
         //var iv = res2.iv;
         //请求自己的服务器
@@ -162,19 +143,13 @@ Page({
     wx.login({
       success: function (res) {
         if (res.code) {
-          var url = 'https://api.weixin.qq.com/sns/jscode2session';
+          var url = 'https://api.weixin.qq.com/sns/jscode2session?appid=wx04d23b275bbd5e5d&secret=db5f77571978527d1cc0c41d2e5eabc0&js_code=' + res.code + '&grant_type=authorization_code'
           var params = {
-            appid: 'wx04d23b275bbd5e5d',
-            secret: 'db5f77571978527d1cc0c41d2e5eabc0',
-            js_code: res.code,
-            grant_type: 'authorization_code'
           }
-          console.error('擦')
           Api.request(url, params, function (data) {
-            console.error('呵呵哒')
             that.setData({
-              openid: res.data.openid,
-              session_key: res.data.session_key
+              openid: data.openid,
+              session_key: data.session_key
             })
           })
         } else {
